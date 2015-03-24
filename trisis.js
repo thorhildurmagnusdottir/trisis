@@ -1,18 +1,15 @@
 /**
- * Created by kristjanaeir on 3/20/15.
- */
-/**
- * Created by kristjanaeir on 3/20/15.
+ * Tölvugrafík haust 2015
+ * Verkefni 3
+ * Trisis
+ * Kristjana Eir Jónsdóttir og Þórhildur Magnúsdóttir
  */
 
 var canvas;
 var gl;
 
-var NumVertices  = 36;
-
 var points = [];
 var colors = [];
-
 var xAxis = 0;
 var yAxis = 1;
 var zAxis = 2;
@@ -186,7 +183,7 @@ function render()
 
     gl.uniformMatrix4fv(mvLoc, false, flatten(ctm));
 
-    gl.drawArrays( gl.TRIANGLES, 0, NumVertices );
+    gl.drawArrays( gl.TRIANGLES, 0, numCubeVertices );
 
     requestAnimFrame( render );
 }

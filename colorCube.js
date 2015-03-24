@@ -1,7 +1,7 @@
 /**
  * Created by kristjanaeir on 3/24/15.
  */
-
+var numCubeVertices = 36;
 function colorCube(color)
 {
     quad( 1, 0, 3, 2, color );
@@ -36,16 +36,16 @@ function quad(a, b, c, d, color)
         [ 1.0, 1.0, 1.0, 1.0 ]   // white
     ];
 
-    // We need to parition the quad into two triangles in order for
-    // WebGL to be able to render it.  In this case, we create two
-    // triangles from the quad indices
-
-    //vertex color assigned by the index of the vertex
-
     var indices = [ a, b, c, a, c, d ];
+    var invertIndices = [ a, b, c, a, c, d ];
 
     for ( var i = 0; i < indices.length; ++i ) {
+        if (color == "invert"){
+            console.log('draw invert');
+            points.push( vertices[invertIndices[i]] );
+        }
         points.push( vertices[indices[i]] );
+
         //colors.push( vertexColors[indices[i]] );
 
         // for solid colored faces use
