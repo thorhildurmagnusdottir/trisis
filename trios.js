@@ -3,22 +3,27 @@
  */
 var LShape = 0;
 var IShape = 1;
-var initPos = [0,20,0];
+var initPos = [0.0,0.0,0.0];
 function Trio(ILshape){
     this.shape = ILshape;
     this.pos = initPos;
+    this.rotation = [];
     this.cubes = this.initCubes();
 }
+var cubePos = [
+    [[0,0,0],[0,1,0],[0,-1,0]],
+    [[0,0,0],[0,1,0],[1, 0,0]]
+];
 Trio.prototype = {
     constructor: Trio,
     initCubes: function () {
         theCubes = [];
         for (i = 0; i < 3; i++) {
             if(this.shape == IShape){
-                theCubes.push(new Cube(this.pos));
+                theCubes.push(new Cube(cubePos[0][i]));
             }
             else {
-                theCubes.push(new Cube(this.pos));
+                theCubes.push(new Cube(cubePos[1][i]));
             }
         }
         return theCubes
@@ -26,8 +31,10 @@ Trio.prototype = {
     move: function(x,y,z) {
         console.log("move Trio by " + x + y + z);
         this.pos = [this.pos[0]+x,this.pos[1]+ y,this.pos[2]+ z];
+        this.cubes.forEach()
     },
     rotate: function(deg, dir){
+
         console.log("rotate Trio by degree " + deg + " and direction " + dir);
     },
     updateCubes: function(){
@@ -36,17 +43,4 @@ Trio.prototype = {
             //theCubes.push(new Cube(this.pos));
         }
     }
-};
-var testTRio = new Trio(IShape);
-testTRio.initCubes();
-//testTRio.move(1,2,3);
-//testTRio.rotate(90, [1,1,1]);
-
-var ITrioIndex;
-drawLTrio = function(){
-//    render code for L-trio
-};
-var LTrioIndex;
-drawLTrio = function(){
-//    render code for L-trio
 };
