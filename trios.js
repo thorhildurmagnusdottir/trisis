@@ -5,3 +5,7 @@ var ITrioIndex;
 drawLTrio = function(){
 //    render code for L-trio
 };
+var LTrioIndex;
+drawLTrio = function(){
+//    render code for L-trio
+};
