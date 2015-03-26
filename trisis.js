@@ -91,18 +91,6 @@ window.onload = function init() {
         }
     });
 
-    // Event listener for keyboard
-    window.addEventListener("keydown", function (e) {
-        switch (e.keyCode) {
-            case 38:	// upp ör
-                zDist += 0.1;
-                break;
-            case 40:	// niður ör
-                zDist -= 0.1;
-                break;
-        }
-    });
-
     // Event listener for mousewheel
     window.addEventListener("mousewheel", function (e) {
         if (e.wheelDelta > 0.0) {
@@ -141,44 +129,6 @@ function render()
     var ctm = lookAt( vec3(0.0, 0.0, zDist), vec3(0.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0) );
     ctm = mult( ctm, rotate( parseFloat(spinX), [1, 0, 0] ) );
     ctm = mult( ctm, rotate( parseFloat(spinY), [0, 1, 0] ) );
-
-    botRightBox = ctm;
-    botRightBox = mult(botRightBox, translate(0.0, 0.0, 0.0));
-    botRightBox = mult(botRightBox, scale4(1.0, 1.0, 1.0));
-    gl.uniformMatrix4fv(mvLoc, false, flatten(botRightBox));
-    gl.drawArrays(gl.TRIANGLES, 0, 36);
-
-    botLeftBox = ctm;
-    botLeftBox = mult(botLeftBox, translate(1.0, 0.0, 0.0));
-    botLeftBox = mult(botLeftBox, scale4(1.0, 1.0, 1.0));
-    gl.uniformMatrix4fv(mvLoc, false, flatten(botLeftBox));
-    gl.drawArrays(gl.TRIANGLES, 0, 36);
-
-    topbox = ctm;
-    topbox = mult(topbox, translate(1.0, 1.0, 0.0));
-    topbox = mult(topbox, scale4(1.0, 1.0, 1.0));
-    gl.uniformMatrix4fv(mvLoc, false, flatten(topbox));
-    gl.drawArrays(gl.TRIANGLES, 0, 36);
-
-    // Straight Shape
-
-    middlebox = ctm;
-    middlebox = mult(middlebox, translate(0.0, 0.0, 0.0));
-    middlebox = mult(middlebox, scale4(1.0, 1.0, 1.0));
-    gl.uniformMatrix4fv(mvLoc, false, flatten(middlebox));
-    gl.drawArrays(gl.TRIANGLES, 0, 36);
-
-    leftbox = ctm;
-    leftbox = mult(leftbox, translate(1.0, 0.0, 0.0));
-    leftbox = mult(leftbox, scale4(1.0, 1.0, 1.0));
-    gl.uniformMatrix4fv(mvLoc, false, flatten(leftbox));
-    gl.drawArrays(gl.TRIANGLES, 0, 36);
-
-    rightbox = ctm;
-    rightbox = mult(rightbox, translate(-1.0, 0.0, 0.0));
-    rightbox = mult(rightbox, scale4(1.0, 1.0, 1.0));
-    gl.uniformMatrix4fv(mvLoc, false, flatten(rightbox));
-    gl.drawArrays(gl.TRIANGLES, 0, 36);
 
     gl.uniformMatrix4fv(mvLoc, false, flatten(ctm));
 

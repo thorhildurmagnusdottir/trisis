@@ -44,27 +44,22 @@ function moveTrio(e){
     zmove = 0;
     switch(e.keyCode){
         case leftArrow:
-            if(Inn i gameCube) xmove = -1.0;
+            if(trio.pos > cube.negXedge) xmove = -1.0;
             break;
         case upArrow:
-            if(Inn i gameCube) zmove = 1.0;
+            if(trio.pos < cube.posZedge) zmove = 1.0;
             break;
         case rightArrow:
-            if(Inn i gameCube) xmove = 1.0;
+            if(trio.pos < cube.posXedge) xmove = 1.0;
             break;
         case downArrow:
-            if(Inn i gameCube) zmove = -1.0;
+            if(trio.pos > cube.negYedge) zmove = -1.0;
             break;
         case enter:
-            //Quickdrop
+            // Detta á efsta sem er á botninum
             break;
         case spaceBar:
-            // dettur hraðar
+            // Detta hratt niður meðan ekki komin á kubb
             break;
-    }
-
-    for(hvern punkt kubbsins){
-        cubeCoords[i][0] += xmove;
-        cubeCoords[i][1] += zmove;
     }
 }
