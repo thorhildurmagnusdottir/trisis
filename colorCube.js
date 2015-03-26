@@ -37,19 +37,21 @@ function quad(a, b, c, d, color)
     ];
 
     var indices = [ a, b, c, a, c, d ];
-    var invertIndices = [ a, b, c, a, c, d ];
+    var invertIndices = [ d, c, a, c, b, a ];
 
     for ( var i = 0; i < indices.length; ++i ) {
-        if (color == "invert"){
+        if (color == 10){
             console.log('draw invert');
             points.push( vertices[invertIndices[i]] );
+            colors.push(vertexColors[invertIndices[i]]);
         }
-        points.push( vertices[indices[i]] );
+        else{
+            points.push( vertices[indices[i]] );
+            //colors.push( vertexColors[indices[i]]);
 
-        //colors.push( vertexColors[indices[i]] );
-
-        // for solid colored faces use
-        colors.push(vertexColors[color]);
+            // for solid colored faces use
+            colors.push(vertexColors[color]);
+        }
 
     }
 }
