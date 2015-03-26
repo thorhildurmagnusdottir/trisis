@@ -8,8 +8,8 @@ drawGameCube = function(){
 };
 var gameCube = {
 };
-function Cube(){
-    this.pos = [];
+function Cube(relpos){
+    this.pos = [relpos[0],relpos[1],relpos[2]];
 }
 Cube.prototype = {
     constructor: Cube,

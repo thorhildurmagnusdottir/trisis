@@ -36,19 +36,18 @@ window.onload = function init() {
         alert("WebGL isn't available");
     }
     var testColor = 3;
-    colorCube(testColor);
-
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(0.9, 1.0, 1.0, 1.0);
-
     gl.enable(gl.DEPTH_TEST);
 
     gl.enable(gl.CULL_FACE);
     gl.cullFace(gl.BACK);
-
     //
     //  Load shaders and initialize attribute buffers
     //
+
+    //colorCube(testColor);
+    drawGameCube();
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
     gl.useProgram(program);
 
@@ -114,7 +113,7 @@ window.onload = function init() {
     });
 
     render();
-}
+};
 
 
 function scale4( x, y, z ){
