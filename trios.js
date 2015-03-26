@@ -7,7 +7,7 @@ var initPos = [0.0,0.0,0.0];
 function Trio(ILshape){
     this.shape = ILshape;
     this.pos = initPos;
-    this.rotation = [];
+    this.rot = [];
     this.cubes = this.initCubes();
 }
 var cubePos = [
@@ -34,7 +34,8 @@ Trio.prototype = {
         this.cubes.forEach()
     },
     rotate: function(deg, dir){
-
+        this.rot[0] = deg;
+        this.rot.push(dir);
         console.log("rotate Trio by degree " + deg + " and direction " + dir);
     },
     updateCubes: function(){

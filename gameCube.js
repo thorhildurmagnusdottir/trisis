@@ -1,8 +1,10 @@
 /**
  * Created by thorhildur on 24.3.2015.
  */
+var gameCubeIndex;
 drawGameCube = function(){
     var gameCubeColor = 10;
+    gameCubeIndex = index;
     colorCube(gameCubeColor);
 //    render code for the game cube
 };
