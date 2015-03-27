@@ -3,11 +3,13 @@
  */
 var LShape = 0;
 var IShape = 1;
-var initPos = [0.0,0.0,0.0];
+var initPos = {x: 0, y:0, z:0 };
+var initRot = {x: 0, y:0, z:0 };
 function Trio(ILshape){
     this.shape = ILshape;
     this.pos = initPos;
-    this.rot = [];
+    this.rot = initRot;
+    this.cubeChildren = [];
     this.cubes = this.initCubes();
 }
 var cubePos = [
@@ -28,20 +30,19 @@ Trio.prototype = {
         }
         return theCubes
     },
+    addCube: function(childCube){
+        this.cubeChildren.push(childCube);
+    },
     move: function(x,y,z) {
-        console.log("move Trio by " + x + y + z);
-        this.pos = [this.pos[0]+x,this.pos[1]+ y,this.pos[2]+ z];
-        this.cubes.forEach()
     },
     rotate: function(deg, dir){
-        this.rot[0] = deg;
-        this.rot.push(dir);
-        console.log("rotate Trio by degree " + deg + " and direction " + dir);
     },
-    updateCubes: function(){
-        for (i = 0; i < 3; i++) {
-            // TODO:
-            //theCubes.push(new Cube(this.pos));
+    getChildPosByID: function(id){
+        var childPos = this.cubeChildren[id].pos;
+        return {
+            x: this.pos.x + childPos.x,
+            y: this.pos.y + childPos.y,
+            z: this.pos.z + childPos.z
         }
     }
 };
