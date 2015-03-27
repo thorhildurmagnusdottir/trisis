@@ -7,7 +7,8 @@
 
 var canvas;
 var gl;
-
+var MVM;
+var index = 0;
 var points = [];
 var colors = [];
 var xAxis = 0;
@@ -91,6 +92,18 @@ window.onload = function init() {
         }
     });
 
+    // Event listener for keyboard
+    window.addEventListener("keydown", function (e) {
+        switch (e.keyCode) {
+            case 38:	// upp ör
+                zDist += 0.1;
+                break;
+            case 40:	// niður ör
+                zDist -= 0.1;
+                break;
+        }
+    });
+
     // Event listener for mousewheel
     window.addEventListener("mousewheel", function (e) {
         if (e.wheelDelta > 0.0) {
@@ -125,15 +138,33 @@ function render()
 
     var proj = perspective( 90.0, 1.0, 0.2, 100.0 );
     gl.uniformMatrix4fv(proLoc, false, flatten(proj));
-
     var ctm = lookAt( vec3(0.0, 0.0, zDist), vec3(0.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0) );
     ctm = mult( ctm, rotate( parseFloat(spinX), [1, 0, 0] ) );
     ctm = mult( ctm, rotate( parseFloat(spinY), [0, 1, 0] ) );
+    ctm = mult( ctm, rotate( rot[0], [0, 1, 0] ) );
 
-    gl.uniformMatrix4fv(mvLoc, false, flatten(ctm));
-
-    gl.drawArrays( gl.TRIANGLES, 0, numCubeVertices );
+    MVM = ctm;
+    renderCube();
+    MVM = mult(MVM, translate(0,1,0));
+    renderCube();
+    MVM = mult(MVM, translate(0,0,-1));
+    renderCube();
+    //GAME CUBE
+    renderGameCube();
 
     requestAnimFrame( render );
 }
-
+function renderCube(){
+    botRightBox = MVM;
+    botRightBox = mult(botRightBox, rotate(90, [0,0,1]));
+    botRightBox = mult(botRightBox, scale4(1.0, 1.0, 1.0));
+    gl.uniformMatrix4fv(mvLoc, false, flatten(botRightBox));
+    gl.drawArrays(gl.TRIANGLES, cubeIndex, 36);
+}
+function renderGameCube(){
+    botRightBox = MVM;
+    botRightBox = mult(botRightBox, rotate(90, [0,0,1]));
+    botRightBox = mult(botRightBox, scale4(6, 20, 6));
+    gl.uniformMatrix4fv(mvLoc, false, flatten(botRightBox));
+    gl.drawArrays(gl.TRIANGLES, gameCubeIndex, 36);
+}

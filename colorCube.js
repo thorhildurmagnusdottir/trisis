@@ -41,12 +41,14 @@ function quad(a, b, c, d, color)
 
     for ( var i = 0; i < indices.length; ++i ) {
         if (color == 10){
-            console.log('draw invert');
+            //console.log('draw invert');
             points.push( vertices[invertIndices[i]] );
+            index++;
             colors.push(vertexColors[invertIndices[i]]);
         }
         else{
             points.push( vertices[indices[i]] );
+            index++;
             //colors.push( vertexColors[indices[i]]);
 
             // for solid colored faces use
