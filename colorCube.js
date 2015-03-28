@@ -43,7 +43,6 @@ function quad(a, b, c, d, color)
         if (color == 10){
             //console.log('draw invert');
             points.push( vertices[invertIndices[i]] );
-            index++;
             colors.push(vertexColors[invertIndices[i]]);
         }
         else{
