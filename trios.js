@@ -12,20 +12,21 @@ function Trio(ILshape){
     this.cubeChildren = [];
     this.cubes = this.initCubes();
 }
-var cubePos = [
-    [[0,0,0],[0,1,0],[0,-1,0]],
-    [[0,0,0],[0,1,0],[1, 0,0]]
-];
+var cubePos = {
+
+    I: [[0,0,0],[0,1,0],[1, 0,0]],
+    L: [[0,0,0],[0,1,0],[0,-1,0]]
+};
 Trio.prototype = {
     constructor: Trio,
     initCubes: function () {
         theCubes = [];
         for (i = 0; i < 3; i++) {
             if(this.shape == IShape){
-                theCubes.push(new Cube(cubePos[0][i]));
+                theCubes.push(new Cube(cubePos.I[i]));
             }
             else {
-                theCubes.push(new Cube(cubePos[1][i]));
+                theCubes.push(new Cube(cubePos.L[i]));
             }
         }
         return theCubes
@@ -37,12 +38,19 @@ Trio.prototype = {
     },
     rotate: function(deg, dir){
     },
-    getChildPosByID: function(id){
-        var childPos = this.cubeChildren[id].pos;
-        return {
-            x: this.pos.x + childPos.x,
-            y: this.pos.y + childPos.y,
-            z: this.pos.z + childPos.z
+    // skilar [] með þremur pos hlutum
+    // á eftir að bæta inn uppfærðum snúningshnitum
+    getCubePos: function(){
+        positions = [];
+        for(i = 0; i< this.cubeChildren.length; i++) {
+            var childPos = this.cubeChildren[id].pos;
+            var truePos = {
+                x: this.pos.x + childPos.x,
+                y: this.pos.y + childPos.y,
+                z: this.pos.z + childPos.z
+            };
+            positions.push(truePos);
         }
+        return positions;
     }
 };
