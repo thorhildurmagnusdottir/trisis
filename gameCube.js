@@ -1,12 +1,15 @@
 /**
  * Created by thorhildur on 24.3.2015.
  */
-var gameCubeIndex;
-drawGameCube = function(){
-    var gameCubeColor = 10;
-    gameCubeIndex = index;
-    colorCube(gameCubeColor);
+
+var gameCube = {
 };
 function Cube(relpos){
-    this.pos = {x: relpos.x, y:relpos.y, z:relpos.z };
+    this.pos = [relpos[0],relpos[1],relpos[2]];
 }
+Cube.prototype = {
+    constructor: Cube,
+    move:function(){
+        this.pos.push("i");
+    }
+};
