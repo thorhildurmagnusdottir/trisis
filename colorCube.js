@@ -1,7 +1,23 @@
 /**
  * Created by kristjanaeir on 3/24/15.
  */
+
+var index = 0;
 var numCubeVertices = 36;
+var gameCubeIndex;
+drawGameCube = function(){
+    var gameCubeColor = 10;
+    gameCubeIndex = index;
+    console.log('init gameCube with gameCubeIndex: ' + gameCubeIndex);
+    colorCube(gameCubeColor);
+};
+drawCube = function () {
+    //  Initialize a cube
+    var cubeColor = 5;
+    cubeIndex = index;
+    console.log('init gameCube with cubeIndex: ' + cubeIndex);
+    colorCube(cubeColor);
+};
 function colorCube(color)
 {
     quad( 1, 0, 3, 2, color );
@@ -41,16 +57,19 @@ function quad(a, b, c, d, color)
 
     for ( var i = 0; i < indices.length; ++i ) {
         if (color == 10){
-            //console.log('draw invert');
+            console.log('draw invert');
             points.push( vertices[invertIndices[i]] );
             colors.push(vertexColors[invertIndices[i]]);
+            index++;
         }
         else{
             points.push( vertices[indices[i]] );
             //colors.push( vertexColors[indices[i]]);
 
             // for solid colored faces use
+
             colors.push(vertexColors[color]);
+            index++;
         }
 
     }

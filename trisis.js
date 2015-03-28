@@ -7,7 +7,7 @@
 
 var canvas;
 var gl;
-
+var MVM;
 var points = [];
 var colors = [];
 var xAxis = 0;
@@ -22,8 +22,8 @@ var spinX = 0;
 var spinY = 0;
 var origX;
 var origY;
-
-var zDist = -4.0;
+var currentTrio;
+var zDist = -10.0;
 
 var proLoc;
 var mvLoc;
@@ -35,18 +35,16 @@ window.onload = function init() {
     if (!gl) {
         alert("WebGL isn't available");
     }
-    var testColor = 3;
+    var testColor = 4;
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(0.9, 1.0, 1.0, 1.0);
     gl.enable(gl.DEPTH_TEST);
 
     gl.enable(gl.CULL_FACE);
     gl.cullFace(gl.BACK);
-    //
-    //  Load shaders and initialize attribute buffers
-    //
-
-    //colorCube(testColor);
+    //  Initialize the Cube
+    drawCube();
+    //  Initialize the Game Cube
     drawGameCube();
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
     gl.useProgram(program);
@@ -128,62 +126,48 @@ function scale4( x, y, z ){
     result[1][1] = y;
     result[2][2] = z;
 
+
     return result;
 }
 
+
+// TODO: draw all cubes on bottom together (make array) part of game.js
+// TODO: make rotation and move inherit (like robotArmHH)
 function render()
 {
+    //var rot = currentTrio.rot;
+    //console.log('rotation' + rot[0]);
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     var proj = perspective( 90.0, 1.0, 0.2, 100.0 );
     gl.uniformMatrix4fv(proLoc, false, flatten(proj));
-
     var ctm = lookAt( vec3(0.0, 0.0, zDist), vec3(0.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0) );
     ctm = mult( ctm, rotate( parseFloat(spinX), [1, 0, 0] ) );
     ctm = mult( ctm, rotate( parseFloat(spinY), [0, 1, 0] ) );
+    MVM = ctm;
 
-    botRightBox = ctm;
-    botRightBox = mult(botRightBox, translate(0.0, 0.0, 0.0));
-    botRightBox = mult(botRightBox, scale4(1.0, 1.0, 1.0));
-    gl.uniformMatrix4fv(mvLoc, false, flatten(botRightBox));
-    gl.drawArrays(gl.TRIANGLES, 0, 36);
-
-    botLeftBox = ctm;
-    botLeftBox = mult(botLeftBox, translate(1.0, 0.0, 0.0));
-    botLeftBox = mult(botLeftBox, scale4(1.0, 1.0, 1.0));
-    gl.uniformMatrix4fv(mvLoc, false, flatten(botLeftBox));
-    gl.drawArrays(gl.TRIANGLES, 0, 36);
-
-    topbox = ctm;
-    topbox = mult(topbox, translate(1.0, 1.0, 0.0));
-    topbox = mult(topbox, scale4(1.0, 1.0, 1.0));
-    gl.uniformMatrix4fv(mvLoc, false, flatten(topbox));
-    gl.drawArrays(gl.TRIANGLES, 0, 36);
-
-    // Straight Shape
-
-    middlebox = ctm;
-    middlebox = mult(middlebox, translate(0.0, 0.0, 0.0));
-    middlebox = mult(middlebox, scale4(1.0, 1.0, 1.0));
-    gl.uniformMatrix4fv(mvLoc, false, flatten(middlebox));
-    gl.drawArrays(gl.TRIANGLES, 0, 36);
-
-    leftbox = ctm;
-    leftbox = mult(leftbox, translate(1.0, 0.0, 0.0));
-    leftbox = mult(leftbox, scale4(1.0, 1.0, 1.0));
-    gl.uniformMatrix4fv(mvLoc, false, flatten(leftbox));
-    gl.drawArrays(gl.TRIANGLES, 0, 36);
-
-    rightbox = ctm;
-    rightbox = mult(rightbox, translate(-1.0, 0.0, 0.0));
-    rightbox = mult(rightbox, scale4(1.0, 1.0, 1.0));
-    gl.uniformMatrix4fv(mvLoc, false, flatten(rightbox));
-    gl.drawArrays(gl.TRIANGLES, 0, 36);
-
-    gl.uniformMatrix4fv(mvLoc, false, flatten(ctm));
-
-    gl.drawArrays( gl.TRIANGLES, 0, numCubeVertices );
+    //GAME CUBE
+    renderGameCube();
+    //MVM = mult(MVM, translate(0,10,0));
+    renderCube();
+    //MVM = mult(MVM, translate(0,1,0));
+    //renderCube();
+    //MVM = mult(MVM, translate(0,0,-1));
+    //renderCube();
 
     requestAnimFrame( render );
 }
-
+function renderCube(){
+    gameCubeMatrix = MVM;
+    gameCubeMatrix = mult(gameCubeMatrix, rotate(90, [0,0,1]));
+    gameCubeMatrix = mult(gameCubeMatrix, scale4(1.0, 1.0, 1.0));
+    gl.uniformMatrix4fv(mvLoc, false, flatten(gameCubeMatrix));
+    gl.drawArrays(gl.TRIANGLES, cubeIndex, numCubeVertices);
+}
+function renderGameCube(){
+    gameCubeMatrix = MVM;
+    gameCubeMatrix = mult(gameCubeMatrix, translate(0, -10, 0));
+    gameCubeMatrix = mult(gameCubeMatrix, scale4(6, 20, 6));
+    gl.uniformMatrix4fv(mvLoc, false, flatten(gameCubeMatrix));
+    gl.drawArrays(gl.TRIANGLES, gameCubeIndex, numCubeVertices);
+}
