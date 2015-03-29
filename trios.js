@@ -65,11 +65,11 @@ Trio.prototype = {
                 var state = currCube.s;
                 switch (axis){
                     case X:
-                        var next = rotMatrix.X.pos.state;
+                        var next = rotMatrix.X.pos[state];
                         // x = 0
                         // TriosPos 0,1,2,3
                         console.log('rotate cube around X axis from state: ' + state + ' to next: ' + next);
-                        //this.cubes[i] = TriosPos[state+1];
+                        this.cubes[i] = TriosPos[next];
                         //console.log('after rotating around X state: ' + currCube.s);
                         break;
                     case Y:
