@@ -148,12 +148,14 @@ function render()
 
     //GAME CUBE
     renderGameCube();
-    //MVM = mult(MVM, translate(0,10,0));
+    MVM = mult(MVM, translate(1,0,0));
     renderCube();
-    //MVM = mult(MVM, translate(0,1,0));
-    //renderCube();
-    //MVM = mult(MVM, translate(0,0,-1));
-    //renderCube();
+    MVM = mult(MVM, translate(1,0,0));
+    renderCube();
+    MVM = mult(MVM, translate(1,0,0));
+    renderCube();
+    MVM = mult(MVM, translate(0,0,1));
+    renderCube();
 
     requestAnimFrame( render );
 }
@@ -166,7 +168,7 @@ function renderCube(){
 }
 function renderGameCube(){
     gameCubeMatrix = MVM;
-    gameCubeMatrix = mult(gameCubeMatrix, translate(0, -10, 0));
+    gameCubeMatrix = mult(gameCubeMatrix, translate(0.5, -9.5, 0.5));
     gameCubeMatrix = mult(gameCubeMatrix, scale4(6, 20, 6));
     gl.uniformMatrix4fv(mvLoc, false, flatten(gameCubeMatrix));
     gl.drawArrays(gl.TRIANGLES, gameCubeIndex, numCubeVertices);

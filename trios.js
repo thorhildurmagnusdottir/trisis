@@ -3,7 +3,7 @@
  */
 var LShape = 0;
 var IShape = 1;
-var initPos = {x: 0, y:0, z:0 };
+var initPos = {x: 1, y:20, z:1 };
 var initRot = {x: 0, y:0, z:0 };
 function Trio(ILshape){
     this.shape = ILshape;
@@ -17,6 +17,7 @@ var cubePos = {
     I: [[0,0,0],[0,1,0],[1, 0,0]],
     L: [[0,0,0],[0,1,0],[0,-1,0]]
 };
+// TODO: make new Trios generate the correct 3 cubes.
 Trio.prototype = {
     constructor: Trio,
     initCubes: function () {
@@ -24,9 +25,12 @@ Trio.prototype = {
         for (i = 0; i < 3; i++) {
             if(this.shape == IShape){
                 theCubes.push(new Cube(cubePos.I[i]));
+                cubeChildren.push(cubePos.I[i]);
             }
             else {
                 theCubes.push(new Cube(cubePos.L[i]));
+                cubeChildren.push(cubePos.L[i]);
+
             }
         }
         return theCubes
