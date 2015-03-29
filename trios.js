@@ -6,8 +6,8 @@ var IShape = 'I';
 var X = 'x';
 var Y = 'y';
 var Z = 'z';
-var positive = 1;
-var negative = 0;
+var positive = 0;
+var negative = 1;
 //var initPos = {x: 1, y:20, z:1 };
 var initPos = {x: 1, y:0, z:1 };
 var initRot = {x: 0, y:0, z:0 };
@@ -35,12 +35,12 @@ var TriosPos = [
     {x:-1, y: 0, z: 0, s: 5 }
 ];
 var rotMatrix = {
-    X: {pos: {'0': 3, 1: 2, 2: 0, 3: 1},
-        neg: {0: 2, 1: 3, 2: 1, 3: 0}},
-    Y: {pos: {0: 5, 1: 4, 4: 0, 5: 1},
-        neg: {0: 4, 1: 5, 4: 1, 5: 0}},
-    Z: {pos: {2: 5, 3: 4, 4: 3, 5: 2},
-        neg: {2: 4, 3: 5, 4: 2, 5: 3}}
+    x: [{0: 3, 1: 2, 2: 0, 3: 1},
+        {0: 2, 1: 3, 2: 1, 3: 0}],
+    y: [{0: 5, 1: 4, 4: 0, 5: 1},
+        {0: 4, 1: 5, 4: 1, 5: 0}],
+    z: [{2: 5, 3: 4, 4: 2, 5: 3},
+        {2: 4, 3: 5, 4: 3, 5: 2}]
 };
 // TODO: make new Trios generate the correct 3 cubes.
 Trio.prototype = {
@@ -63,28 +63,9 @@ Trio.prototype = {
             else {
                 console.log('Rotating cube ' + this.cubes[i]);
                 var state = currCube.s;
-                switch (axis){
-                    case X:
-                        var next = rotMatrix.X.pos[state];
-                        // x = 0
-                        // TriosPos 0,1,2,3
-                        console.log('rotate cube around X axis from state: ' + state + ' to next: ' + next);
-                        this.cubes[i] = TriosPos[next];
-                        //console.log('after rotating around X state: ' + currCube.s);
-                        break;
-                    case Y:
-                        // y = 0
-                        // TriosPos 0,1,4,5
-                        console.log('rotate cube around Y axis from state: ' + state);
-                        this.cubes[i] = TriosPos[state+1];
-                        break;
-                    case Z:
-                        // z = 0
-                        // TriosPos 2,3,4,5
-                        console.log('rotate cube around Z axis from state: ' + state);
-                        this.cubes[i] = TriosPos[state+1];
-                        break;
-                }
+                var next;
+                next = rotMatrix[axis][dir][state];
+                this.cubes[i] = TriosPos[next];
             }
         }
     },

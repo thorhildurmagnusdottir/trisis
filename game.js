@@ -3,6 +3,7 @@
  */
 testTrios = function () {
     var testITrio = new Trio(IShape);
-    currentTrio = testITrio;
-    //currentTrio.rotate(X);
+    var testLTrio = new Trio(LShape);
+    currentTrio = testLTrio;
+    //currentTrio.rotate(x);
 };
