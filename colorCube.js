@@ -8,14 +8,14 @@ var gameCubeIndex;
 drawGameCube = function(){
     var gameCubeColor = 10;
     gameCubeIndex = index;
-    console.log('init gameCube with gameCubeIndex: ' + gameCubeIndex);
+    //console.log('init gameCube with gameCubeIndex: ' + gameCubeIndex);
     colorCube(gameCubeColor);
 };
 drawCube = function () {
     //  Initialize a cube
-    var cubeColor = 5;
+    var cubeColor = 0;
     cubeIndex = index;
-    console.log('init gameCube with cubeIndex: ' + cubeIndex);
+    //console.log('init gameCube with cubeIndex: ' + cubeIndex);
     colorCube(cubeColor);
 };
 function colorCube(color)
@@ -57,7 +57,7 @@ function quad(a, b, c, d, color)
 
     for ( var i = 0; i < indices.length; ++i ) {
         if (color == 10){
-            console.log('draw invert');
+            //console.log('draw invert');
             points.push( vertices[invertIndices[i]] );
             index++;
             colors.push(vertexColors[invertIndices[i]]);
@@ -67,9 +67,7 @@ function quad(a, b, c, d, color)
             points.push( vertices[indices[i]] );
             index++;
             //colors.push( vertexColors[indices[i]]);
-
             // for solid colored faces use
-
             colors.push(vertexColors[color]);
             index++;
         }

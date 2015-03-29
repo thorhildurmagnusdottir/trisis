@@ -3,9 +3,9 @@
  */
 testTrios = function () {
     var testITrio = new Trio(IShape);
-    testITrio.initCubes();
+    //testITrio.initCubes();
     currentTrio = testITrio;
-    currentTrio.rotate(90, 90);
-    var testLTrio = new Trio(LShape);
-    testLTrio.initCubes();
+    //currentTrio.rotate(90, 90);
+    //var testLTrio = new Trio(LShape);
+    //testLTrio.initCubes();
 };
