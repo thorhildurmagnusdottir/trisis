@@ -35,6 +35,9 @@ Trio.prototype = {
         this.cubeChildren.push(childCube);
     },
     move: function(x,y,z) {
+        this.pos.x = x;
+        this.pos.y = y;
+        this.pos.z = z;
     },
     rotate: function(deg, dir){
     },
