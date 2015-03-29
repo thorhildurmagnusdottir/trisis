@@ -3,13 +3,9 @@
  */
 testTrios = function () {
     var testITrio = new Trio(IShape);
-    var testLTrio = new Trio(LShape);
+    var testLTrio;
+    testLTrio = new Trio(LShape);
     currentTrio = testLTrio;
-    //currentTrio.rotate(x);
-};
-    currentTrio.rotate(90, 90);
-    var testLTrio = new Trio(LShape);
-    testLTrio.initCubes();
 };
 
 function moveTrio(e){
@@ -91,22 +87,22 @@ function Game(game){
     this.currentTrio = currentTrio;
 }
 
-Game.prototype ={
+Game.prototype = {
+    constructor: Game,
     genrate: function(){
         if(CurrentTrio.stop){
             new Trio;
         }
-    }
+    },
     gamePlay: function(){
         generate();
         if(deleteRow) {
             points++;
             // Allir stopTrio.pos(0, -1, 0);
         }
-    }
-
+    },
     newGame: function(){
         clearBoard()
         this.points = 0
     }
-}
+};
