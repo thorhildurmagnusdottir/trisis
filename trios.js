@@ -13,6 +13,7 @@ var initPos = {x: 1, y:0, z:1 };
 var initRot = {x: 0, y:0, z:0 };
 function Trio(ILshape){
     //this.shape = ILshape;
+    console.log('new trio with shape ' + ILshape);
     this.pos = initPos;
     this.cubes = cubeInitPos[ILshape];
 }
@@ -42,7 +43,6 @@ var rotMatrix = {
     z: [{2: 5, 3: 4, 4: 2, 5: 3},
         {2: 4, 3: 5, 4: 3, 5: 2}]
 };
-// TODO: make new Trios generate the correct 3 cubes.
 Trio.prototype = {
     constructor: Trio,
     move: function(x,y,z) {
@@ -51,17 +51,17 @@ Trio.prototype = {
         this.pos.z += z;
     },
     rotate: function(axis, dir){
-        console.log('rotate trios around ' + axis + ' axis and ' + dir + ' direction.');
+        //console.log('rotate trios around ' + axis + ' axis and ' + dir + ' direction.');
         // TODO: útfæra betur miðað við stöður og stefnu triosins.
         // Byrjum á öðrum kubb því höfum alltaf sama kubbinn í miðjunni.
         for(i = 1; i< this.cubes.length; i++) {
             var currCube = this.cubes[i];
             if (currCube[axis] != 0){
                 // rotate hefur ekki áhrif á kubb á þeim snúningsás
-                console.log('Do nothing with cube ' + this.cubes[i]);
+                //console.log('Do nothing with cube ' + this.cubes[i]);
             }
             else {
-                console.log('Rotating cube ' + this.cubes[i]);
+                //console.log('Rotating cube ' + this.cubes[i]);
                 var state = currCube.s;
                 var next;
                 next = rotMatrix[axis][dir][state];
