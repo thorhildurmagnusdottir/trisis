@@ -77,7 +77,7 @@ function moveTrio(e){
                 currentTrio.rotate(z, 1);
             }
             break;
-        case 82:
+        case 82:    // Letter R
             if(gameOver){
                 game.newGame();
             }
@@ -94,6 +94,7 @@ function Game(game){
 }
 
 Game.prototype ={
+    constructor: Game,
     genrate: function(){
         if(CurrentTrio.stop){
             new Trio;
