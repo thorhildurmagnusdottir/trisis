@@ -10,7 +10,7 @@ var shouldMove = function(){
 // TODO: interval function that moves trio down every 'second'.
 var initEvents = function(){
     window.addEventListener("keydown", function (e) {
-        var currentTrio = currentGame.trio;
+        var currentTrio = game.trio;
         switch (e.keyCode){
             case 13:    // Enter button
                         //Quickdrop

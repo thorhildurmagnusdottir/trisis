@@ -111,7 +111,7 @@ function render()
 function renderCurrentTrio(){
     // TODO add Game object into account.
     var mcm, test;
-    test = currentGame.trio.getCubePos();
+    test = game.trio.getCubePos();
     for(i=0;i<3;i++) {
         mcm = mult(MVM, translate(test[i]));
         renderCube(mcm);
