@@ -40,6 +40,9 @@ Game.prototype = {
             score++;
             // Allir stopTrio.pos(0, -1, 0);
         }
+        if(score > 5){
+            dropSpeed -= 100;
+        }
     },
     generate: function(){
         if(CurrentTrio.stop){

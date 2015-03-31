@@ -24,6 +24,7 @@ var spinY = 0;
 var origX;
 var origY;
 var currentTrio;
+var dropSpeed = 1500;
 var zDist = -8.0;
 
 var proLoc;
@@ -69,8 +70,8 @@ window.onload = function init() {
     proLoc = gl.getUniformLocation(program, "projection");
     mvLoc = gl.getUniformLocation(program, "modelview");
 
-    initEvents();
     initGame();
+    initEvents();
     render();
 };
 function scale4( x, y, z ){
