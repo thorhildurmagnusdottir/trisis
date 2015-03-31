@@ -1,108 +1,72 @@
 /**
  * Created by thorhildur on 28.3.2015.
  */
-testTrios = function () {
-    var testITrio = new Trio(IShape);
-    var testLTrio;
-    testLTrio = new Trio(LShape);
-    currentTrio = testLTrio;
+var currentGame;
+initGame = function () {
+    currentGame = new IGame();
 };
-
-function moveTrio(e){
-
-    var moveIsLegal = true;
-    switch (e.keyCode){
-        case 13:    // Enter button
-            //Quickdrop
-            break;
-        case 32:    // SpaceBar
-            if(moveIsLegal) {
-                setTimeout(1000);
-                currentTrio.move(0, -1, 0);
-            }
-            break;
-        case 37:    // Left arrow
-            if(moveIsLegal){
-                currentTrio.move(-1, 0, 0);
-            }
-            break;
-        case 38:    // Up arrow
-            if(moveIsLegal){
-                currentTrio.move(0, 1, 0);
-            }
-            break;
-        case 39:    // Right arrow
-            if(moveIsLegal){
-                currentTrio.move(1, 0, 0);
-            }
-            break;
-        case 40:    // Down arrow
-            if(moveIsLegal){
-                currentTrio.move(0, -1, 0);
-            }
-            break;
-        case 65:    // Letter A
-            if(moveIsLegal){
-                currentTrio.rotate(x, 1);
-            }
-            break;
-        case 90:    // Letter Z
-            if(moveIsLegal){
-                currentTrio.rotate(x, 1);
-            }
-            break;
-        case 83:    // Letter S
-            if(moveIsLegal){
-                currentTrio.rotate(y, 1);
-            }
-            break;
-        case 88:    // Letter X
-            if(moveIsLegal){
-                currentTrio.rotate(y, 1);
-            }
-            break;
-        case 68:    // Letter D
-            if(moveIsLegal){
-                currentTrio.rotate(z, 1);
-            }
-            break;
-        case 67:    // Letter C
-            if(moveIsLegal){
-                currentTrio.rotate(z, 1);
-            }
-            break;
-        case 82:
-            if(gameOver){
-                game.newGame();
-            }
-    }
-
+var score = 0;
+var generateTrio = function(){
+    var randomShape;
+    if (Math.random()>0.5) randomShape = IShape;
+    else randomShape = LShape;
+    return new Trio(randomShape);
+};
+//function Game(game){
+//    this.game = game;
+//    this.score = score;
+//    this.currentTrio = currentTrio;
+//}
+//
+//Game.prototype = {
+//    constructor: Game,
+//    generate: function(){
+//        if(CurrentTrio.stop){
+//            new Trio;
+//        }
+//    },
+//    gamePlay: function(){
+//        generate();
+//        if(deleteRow) {
+//            score++;
+//            // Allir stopTrio.pos(0, -1, 0);
+//        }
+//    },
+//    newGame: function(){
+//        clearBoard();
+//        this.score = 0
+//    }
+//};
+// TODO: function for trio to 'die': add to fallen and generate new
+// TODO: Collistion detect function before trio move/rotate
+// Bara profa ad gera adeins adra utfaerslu af Game
+function IGame(){
+    console.log('started a Game');
+    this.score = 0;
+    this.fallenTrios = [];
+    this.trio = generateTrio();
 }
-
-var points = 0;
-
-function Game(game){
-    this.game = game;
-    this.points = points;
-    this.currentTrio = currentTrio;
-}
-
-Game.prototype = {
-    constructor: Game,
-    genrate: function(){
+IGame.prototype = {
+    constructor: IGame,
+    //trioFall: function()
+    generate: function(){
         if(CurrentTrio.stop){
             new Trio;
         }
     },
     gamePlay: function(){
-        generate();
+        this.generate();
         if(deleteRow) {
-            points++;
+            score++;
             // Allir stopTrio.pos(0, -1, 0);
         }
     },
     newGame: function(){
-        clearBoard()
-        this.points = 0
+        clearBoard();
+        this.score = 0
+    },
+    cubeFall: function (){
+        this.fallenTrios.push(currentGame.trio.getCubePos());
     }
 };
+function clearBoard(){}

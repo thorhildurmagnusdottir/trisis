@@ -69,48 +69,8 @@ window.onload = function init() {
     proLoc = gl.getUniformLocation(program, "projection");
     mvLoc = gl.getUniformLocation(program, "modelview");
 
-    //event listeners for mouse
-    canvas.addEventListener("mousedown", function (e) {
-        movement = true;
-        origX = e.offsetX;
-        origY = e.offsetY;
-        e.preventDefault();         // Disable drag and drop
-    });
-
-    canvas.addEventListener("mouseup", function (e) {
-        movement = false;
-    });
-
-    canvas.addEventListener("mousemove", function (e) {
-        if (movement) {
-            spinY = ( spinY + (e.offsetX - origX) ) % 360;
-            spinX = ( spinX + (origY - e.offsetY) ) % 360;
-            origX = e.offsetX;
-            origY = e.offsetY;
-        }
-    });
-
-    // Event listener for keyboard
-    window.addEventListener("keydown", function (e) {
-        switch (e.keyCode) {
-            case 38:	// upp ör
-                zDist += 0.1;
-                break;
-            case 40:	// niður ör
-                zDist -= 0.1;
-                break;
-        }
-    });
-
-    // Event listener for mousewheel
-    window.addEventListener("mousewheel", function (e) {
-        if (e.wheelDelta > 0.0) {
-            zDist += 0.1;
-        } else {
-            zDist -= 0.1;
-        }
-    });
-    testTrios();
+    initEvents();
+    initGame();
     render();
 };
 function scale4( x, y, z ){
@@ -144,13 +104,14 @@ function render()
     MVM = ctm;
     //GAME CUBE
 
-    //renderGameCube();
+    renderGameCube();
     renderCurrentTrio();
     requestAnimFrame( render );
 }
 function renderCurrentTrio(){
+    // TODO add Game object into account.
     var mcm, test;
-    test = currentTrio.getCubePos();
+    test = currentGame.trio.getCubePos();
     for(i=0;i<3;i++) {
         mcm = mult(MVM, translate(test[i]));
         renderCube(mcm);
@@ -164,7 +125,7 @@ function renderCube(mcm){
 }
 function renderGameCube(){
     gameCubeMatrix = MVM;
-    gameCubeMatrix = mult(gameCubeMatrix, translate(0.5, 10.5, 0.5));
+    gameCubeMatrix = mult(gameCubeMatrix, translate(0.5, 0.5, 0.5));
     gameCubeMatrix = mult(gameCubeMatrix, scale4(6, 20, 6));
     gl.uniformMatrix4fv(mvLoc, false, flatten(gameCubeMatrix));
     gl.drawArrays(gl.TRIANGLES, gameCubeIndex, numCubeVertices);
