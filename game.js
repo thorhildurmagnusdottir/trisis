@@ -1,21 +1,32 @@
 /**
  * Created by thorhildur on 28.3.2015.
  */
-testTrios = function () {
-    var testITrio = new Trio(IShape);
-    //testITrio.initCubes();
-    currentTrio = testITrio;
-    //currentTrio.rotate(90, 90);
-    //var testLTrio = new Trio(LShape);
-    //testLTrio.initCubes();
+    // game is the currently playing game.
+var game;
+
+// Starts a game to play.
+initGame = function () {
+    game = new Game();
 };
-    currentTrio.rotate(90, 90);
-    var testLTrio = new Trio(LShape);
-    testLTrio.initCubes();
+var score = 0;
+// Generates a trio, randomly I or L shape.
+var generateTrio = function(){
+    var randomShape;
+    if (Math.random()>0.5) randomShape = IShape;
+    else randomShape = LShape;
+    return new Trio(randomShape);
 };
 
-function moveTrio(e){
+// When an instance (var game = new Game()) of Game is created, one trio is generated
+function Game(){
+    //this.currentTrio = currentTrio;
+    console.log('started a Game');
+    this.score = 0;
+    // fallenTrios are the trios on the bottom.
+    this.fallenTrios = [];
 
+    // trio is the current game trio.
+    this.trio = generateTrio();
     var moveIsLegal = true;
     switch (e.keyCode){
         case 13:    // Enter button
@@ -84,32 +95,28 @@ function moveTrio(e){
     }
 
 }
-
-var points = 0;
-
-function Game(game){
-    this.game = game;
-    this.points = points;
-    this.currentTrio = currentTrio;
-}
-
-Game.prototype ={
+// TODO: function for trio to 'die': add to fallen and generate new
+// TODO: Collistion detect function before trio move/rotate
+Game.prototype = {
     constructor: Game,
-    genrate: function(){
+    gamePlay: function(){
+        this.generate();
+        if(deleteRow) {
+            score++;
+            // Allir stopTrio.pos(0, -1, 0);
+        }
+    },
+    generate: function(){
         if(CurrentTrio.stop){
             new Trio;
         }
-    }
-    gamePlay: function(){
-        generate();
-        if(deleteRow) {
-            points++;
-            // Allir stopTrio.pos(0, -1, 0);
-        }
-    }
-
+    },
     newGame: function(){
-        clearBoard()
-        this.points = 0
+        clearBoard();
+        this.score = 0
+    },
+    cubeFall: function (){
+        this.fallenTrios.push(game.trio.getCubePos());
     }
-}
+};
+function clearBoard(){}
