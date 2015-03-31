@@ -1,24 +1,29 @@
 /**
  * Created by thorhildur on 30.3.2015.
  */
-
+var bottom = -10;
 var moveIsLegal = true;
 var shouldMove = function(){
     return true;
 };
+
 // TODO: all events should call some sort of "shouldMove" function
 // TODO: interval function that moves trio down every 'second'.
 var initEvents = function(){
     window.addEventListener("keydown", function (e) {
         var currentTrio = game.trio;
+
+        // setInterval((currentTrio.move(0, -1, 0)), 1500);
+
         switch (e.keyCode){
             case 13:    // Enter button
-                        //Quickdrop
+                if(moveIsLegal){
+                    currentTrio.move(0, bottom, 0);
+                }
                 break;
             case 32:    // SpaceBar
                 console.log('space bar');
                 if(moveIsLegal) {
-                    setTimeout(1000);
                     currentTrio.move(0, -1, 0);
                 }
                 break;
@@ -97,18 +102,6 @@ var initEvents = function(){
             spinX = ( spinX + (origY - e.offsetY) ) % 360;
             origX = e.offsetX;
             origY = e.offsetY;
-        }
-    });
-
-    // Event listener for keyboard
-    window.addEventListener("keydown", function (e) {
-        switch (e.keyCode) {
-            case 38:	// upp ör
-                zDist += 0.1;
-                break;
-            case 40:	// niður ör
-                zDist -= 0.1;
-                break;
         }
     });
 
