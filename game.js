@@ -33,6 +33,7 @@ function Game(){
     // trio is the current game trio.
     this.trio = generateTrio();
     // var moveIsLegal = true;
+    document.getElementById('score').innerHTML = "You have " + score + " points";
 }
 // TODO: function for trio to 'die': add to fallen and generate new
 // TODO: Collistion detect function before trio move/rotate
