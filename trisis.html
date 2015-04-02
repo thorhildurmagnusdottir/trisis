@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="is">
+<head>
+    <meta charset="utf-8">
+    <title> T3Dris </title>
+    <link rel="stylesheet" type="text/css" href="trisis.css">
+</head>
 <script id="vertex-shader" type="x-shader/x-vertex">
 
 attribute  vec4 vPosition;
@@ -39,15 +43,32 @@ main()
 <script type="text/javascript" src="game.js"></script>
 <script type="text/javascript" src="events.js"></script>
 <script type="text/javascript" src="trisis.js"></script>
+<script type="text/javascript" src="gameCoords.js"></script>
+<script type="text/javascript" src="test.js"></script>
 
 
 
 <body>
-<canvas id="gl-canvas" width="500" height="500">
-Oops ... your browser doesn't support the HTML5 canvas element
-</canvas>
-
-<br/>
-
+<div id="wrapper">
+    <img src="http://www.hdwallpap.com/wp-content/uploads/2013/04/black-hd-wallpapers.jpg">
+    <div id="flexwrapper">
+        <canvas id="gl-canvas" width="1000" height="800">
+            Oops ... your browser doesn't support the HTML5 canvas element
+        </canvas>
+        <div id="gameInfo">
+            <div id="score"></div>
+            <div id="newGame">To start a new game press 'R'</div>
+            <div id="instructions">To move the cube use
+                <ul>
+                    <li>Arrow keys to move relative to plane</li>
+                    <li>'A' or 'Z' to move around X-axis</li>
+                    <li>'S' or 'X' to move around Y-axis</li>
+                    <li>'D' or 'C' to move around Z-axis</li>
+                </ul>
+            </div>
+            <h3>Made by: Kristjana Eir Jónsdóttir and Þórhildur Magnúsdóttir</h3>
+        </div>
+    </div>
+</div>
 </body>
 </html>

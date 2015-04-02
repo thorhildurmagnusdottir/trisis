@@ -24,13 +24,16 @@ var spinY = 0;
 var origX;
 var origY;
 var currentTrio;
-var zDist = -8.0;
+var dropSpeed = 1500;
+var zDist = -20.0;
 
 var proLoc;
 var mvLoc;
 
 window.onload = function init() {
     canvas = document.getElementById("gl-canvas");
+    canvas.width  = window.innerHeight;
+    canvas.height = window.innerHeight;
 
     gl = WebGLUtils.setupWebGL(canvas);
     if (!gl) {
@@ -38,7 +41,7 @@ window.onload = function init() {
     }
     var testColor = 4;
     gl.viewport(0, 0, canvas.width, canvas.height);
-    gl.clearColor(0.9, 1.0, 1.0, 1.0);
+    gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.enable(gl.DEPTH_TEST);
 
     gl.enable(gl.CULL_FACE);
@@ -69,8 +72,8 @@ window.onload = function init() {
     proLoc = gl.getUniformLocation(program, "projection");
     mvLoc = gl.getUniformLocation(program, "modelview");
 
-    initEvents();
     initGame();
+    initEvents();
     render();
 };
 function scale4( x, y, z ){
@@ -84,7 +87,6 @@ function scale4( x, y, z ){
     result[0][0] = x;
     result[1][1] = y;
     result[2][2] = z;
-
 
     return result;
 }
@@ -111,7 +113,7 @@ function render()
 function renderCurrentTrio(){
     // TODO add Game object into account.
     var mcm, test;
-    test = currentGame.trio.getCubePos();
+    test = game.trio.getCubePos();
     for(i=0;i<3;i++) {
         mcm = mult(MVM, translate(test[i]));
         renderCube(mcm);
@@ -125,7 +127,7 @@ function renderCube(mcm){
 }
 function renderGameCube(){
     gameCubeMatrix = MVM;
-    gameCubeMatrix = mult(gameCubeMatrix, translate(0.5, 10.5, 0.5));
+    gameCubeMatrix = mult(gameCubeMatrix, translate(0.5, 0.5, 0.5));
     gameCubeMatrix = mult(gameCubeMatrix, scale4(6, 20, 6));
     gl.uniformMatrix4fv(mvLoc, false, flatten(gameCubeMatrix));
     gl.drawArrays(gl.TRIANGLES, gameCubeIndex, numCubeVertices);
