@@ -1,65 +1,55 @@
 /**
  * Created by thorhildur on 28.3.2015.
  */
-var currentGame;
+    // game is the currently playing game.
+var game;
+
+// Starts a game to play.
 initGame = function () {
-    currentGame = new IGame();
+    game = new Game();
 };
 var score = 0;
+// Generates a trio, randomly I or L shape.
 var generateTrio = function(){
     var randomShape;
     if (Math.random()>0.5) randomShape = IShape;
     else randomShape = LShape;
     return new Trio(randomShape);
 };
-//function Game(game){
-//    this.game = game;
-//    this.score = score;
-//    this.currentTrio = currentTrio;
-//}
-//
-//Game.prototype = {
-//    constructor: Game,
-//    generate: function(){
-//        if(CurrentTrio.stop){
-//            new Trio;
-//        }
-//    },
-//    gamePlay: function(){
-//        generate();
-//        if(deleteRow) {
-//            score++;
-//            // Allir stopTrio.pos(0, -1, 0);
-//        }
-//    },
-//    newGame: function(){
-//        clearBoard();
-//        this.score = 0
-//    }
-//};
-// Bara profa ad gera adeins adra utfaerslu af Game
-function IGame(){
+
+// When an instance (var game = new Game()) of Game is created, one trio is generated
+function Game(){
+    //this.currentTrio = currentTrio;
+    console.log('started a Game');
     this.score = 0;
+    // fallenTrios are the trios on the bottom.
     this.fallenTrios = [];
+
+    // trio is the current game trio.
     this.trio = generateTrio();
 }
-IGame.prototype = {
-    constructor: IGame,
-    //trioFall: function()
-    generate: function(){
-        if(CurrentTrio.stop){
-            new Trio;
-        }
-    },
+// TODO: function for trio to 'die': add to fallen and generate new
+// TODO: Collistion detect function before trio move/rotate
+Game.prototype = {
+    constructor: Game,
     gamePlay: function(){
-        generate();
+        this.generate();
         if(deleteRow) {
             score++;
             // Allir stopTrio.pos(0, -1, 0);
         }
     },
+    generate: function(){
+        if(CurrentTrio.stop){
+            new Trio;
+        }
+    },
     newGame: function(){
         clearBoard();
         this.score = 0
+    },
+    cubeFall: function (){
+        this.fallenTrios.push(game.trio.getCubePos());
     }
 };
+function clearBoard(){}

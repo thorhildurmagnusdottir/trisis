@@ -18,6 +18,7 @@ var initEvents = function(){
                 if(moveIsLegal) {
                     setTimeout(1000);
                     currentTrio.move(0, -1, 0);
+                    game.willCollide(currentTrio);
                 }
                 break;
             case 37:    // Left arrow
