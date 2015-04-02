@@ -25,13 +25,15 @@ var origX;
 var origY;
 var currentTrio;
 var dropSpeed = 1500;
-var zDist = -8.0;
+var zDist = -20.0;
 
 var proLoc;
 var mvLoc;
 
 window.onload = function init() {
     canvas = document.getElementById("gl-canvas");
+    canvas.width  = window.innerHeight;
+    canvas.height = window.innerHeight;
 
     gl = WebGLUtils.setupWebGL(canvas);
     if (!gl) {
@@ -39,7 +41,7 @@ window.onload = function init() {
     }
     var testColor = 4;
     gl.viewport(0, 0, canvas.width, canvas.height);
-    gl.clearColor(0.9, 1.0, 1.0, 1.0);
+    gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.enable(gl.DEPTH_TEST);
 
     gl.enable(gl.CULL_FACE);
@@ -85,7 +87,6 @@ function scale4( x, y, z ){
     result[0][0] = x;
     result[1][1] = y;
     result[2][2] = z;
-
 
     return result;
 }
