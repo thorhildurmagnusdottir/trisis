@@ -51,10 +51,12 @@ Game.prototype = {
     },
     newGame: function(){
         clearBoard();
-        this.score = 0
+        score = 0;
     },
     cubeFall: function (){
         this.fallenTrios.push(game.trio.getCubePos());
     }
 };
-function clearBoard(){}
+function clearBoard(){
+
+}

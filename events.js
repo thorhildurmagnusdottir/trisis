@@ -6,6 +6,7 @@ var moveIsLegal = true;
 var shouldMove = function(){
     return true;
 };
+var pauseGame = false;
 
 // TODO: all events should call some sort of "shouldMove" function
 // TODO: interval function that moves trio down every 'second'.
@@ -19,6 +20,13 @@ var initEvents = function(){
 
 
         switch (e.keyCode){
+            case 80:    // Letter P
+                clearInterval(droptrio);
+                pauseGame = !pauseGame;
+                    if(!pauseGame){
+                        setInterval(function() {currentTrio.move(0, -1, 0)}, dropSpeed);
+                    }
+                break;
             case 13:    // Enter button
                 if(moveIsLegal){
                     currentTrio.move(0, bottom, 0);
@@ -26,64 +34,65 @@ var initEvents = function(){
                 break;
             case 32:    // SpaceBar
                 console.log('space bar');
-                if(moveIsLegal) {
+                if(moveIsLegal && !pauseGame) {
                     currentTrio.move(0, -1, 0);
                 }
                 break;
             case 37:    // Left arrow
-                if(moveIsLegal){
+                if(moveIsLegal && !pauseGame){
                     currentTrio.move(1, 0, 0);
                 }
                 break;
             case 38:    // Up arrow
-                if(moveIsLegal){
+                if(moveIsLegal && !pauseGame){
                     currentTrio.move(0, 0, 1);
                 }
                 break;
             case 39:    // Right arrow
-                if(moveIsLegal){
+                if(moveIsLegal && !pauseGame){
                     currentTrio.move(-1, 0, 0);
                 }
                 break;
             case 40:    // Down arrow
-                if(moveIsLegal){
+                if(moveIsLegal && !pauseGame){
                     currentTrio.move(0, 0, -1);
                 }
                 break;
             case 65:    // Letter A
-                if(moveIsLegal){
+                if(moveIsLegal && !pauseGame){
                     currentTrio.rotate(X, positive);
                 }
                 break;
             case 90:    // Letter Z
-                if(moveIsLegal){
+                if(moveIsLegal && !pauseGame){
                     currentTrio.rotate(X, negative);
                 }
                 break;
             case 83:    // Letter S
-                if(moveIsLegal){
+                if(moveIsLegal && !pauseGame){
                     currentTrio.rotate(Y, positive);
                 }
                 break;
             case 88:    // Letter X
-                if(moveIsLegal){
+                if(moveIsLegal && !pauseGame){
                     currentTrio.rotate(Y, negative);
                 }
                 break;
             case 68:    // Letter D
-                if(moveIsLegal){
+                if(moveIsLegal && !pauseGame){
                     currentTrio.rotate(Z, positive);
                 }
                 break;
             case 67:    // Letter C
-                if(moveIsLegal){
+                if(moveIsLegal && !pauseGame){
                     currentTrio.rotate(Z, negative);
                 }
                 break;
-            case 82: // Letter R
+            case 82:    // Letter R
                 if(gameOver){
                     game.newGame();
                 }
+                break;
         }
 
     });
