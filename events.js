@@ -6,7 +6,6 @@ var moveIsLegal = true;
 var shouldMove = function(){
     return true;
 };
-var pauseGame = false;
 
 // TODO: all events should call some sort of "shouldMove" function
 // TODO: interval function that moves trio down every 'second'.
@@ -14,7 +13,8 @@ var initEvents = function(){
 
     var currentTrio = game.trio;
 
-    var droptrio = setInterval(function () {currentTrio.move(0, -1, 0)}, dropSpeed);
+    var droptrio = setInterval(function () {
+        currentTrio.move(0, -1, 0)}, dropSpeed);
 
     window.addEventListener("keydown", function (e) {
 
@@ -34,7 +34,7 @@ var initEvents = function(){
                 break;
             case 32:    // SpaceBar
                 console.log('space bar');
-                if(moveIsLegal && !pauseGame) {
+                if(moveIsLegal) {
                     currentTrio.move(0, -1, 0);
                 }
                 break;
@@ -88,11 +88,11 @@ var initEvents = function(){
                     currentTrio.rotate(Z, negative);
                 }
                 break;
-            case 82:    // Letter R
-                if(gameOver){
-                    game.newGame();
-                }
-                break;
+            case 82: // Letter R
+                //if(gameOver){
+                //    game.newGame();
+                //}
+                newGame();
         }
 
     });
@@ -126,3 +126,11 @@ var initEvents = function(){
         }
     });
 };
+var shouldMove = function(){
+    return true;
+};
+function newGame(){
+    console.log('Started a new Game');
+    alert('Started a new game, your points were: ' + game.score);
+    game = new Game();
+}
