@@ -13,8 +13,8 @@ var initEvents = function(){
 
     var currentTrio = game.trio;
 
-    //var droptrio = setInterval(function () {
-    //    currentTrio.move(0, -1, 0)}, dropSpeed);
+    var droptrio = setInterval(function () {
+        currentTrio.move(0, -1, 0)}, dropSpeed);
 
     window.addEventListener("keydown", function (e) {
 
