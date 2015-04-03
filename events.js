@@ -3,9 +3,21 @@
  */
 var bottom = -10;
 var moveIsLegal = true;
+// TODO: fix shouldMove
+// Virkar ekki alveg, en á rétta leið held ég
 var shouldMove = function(){
-    return true;
+    var xBorder = currentTrio.getCubePos[0];
+    var yBorder = currentTrio.getCubePos[1];
+    var zBorder = currentTrio.getCubePos[2];
+
+    if(xBorder > 6 || xBorder < 0 || zBorder > 6 || zBorder < 0 || yBorder < 0){
+        return true
+    }
+    else {
+        return false;
+    }
 };
+var pauseGame = false;
 
 // TODO: all events should call some sort of "shouldMove" function
 // TODO: interval function that moves trio down every 'second'.
@@ -28,13 +40,13 @@ var initEvents = function(){
                     }
                 break;
             case 13:    // Enter button
-                if(moveIsLegal){
+                if(moveIsLegal && !pauseGame){
                     currentTrio.move(0, bottom, 0);
                 }
                 break;
             case 32:    // SpaceBar
                 console.log('space bar');
-                if(moveIsLegal) {
+                if(moveIsLegal && !pauseGame) {
                     currentTrio.move(0, -1, 0);
                 }
                 break;
