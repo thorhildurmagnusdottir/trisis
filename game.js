@@ -27,7 +27,6 @@ function Game(){
     // trio is the current game trio.
     this.trio = generateTrio();
     // var moveIsLegal = true;
-    document.getElementById('score').innerHTML = "You have " + score + " points";
 }
 // TODO: function for trio to 'die': add to fallen and generate new
 // TODO: Collistion detect function before trio move/rotate
@@ -90,6 +89,7 @@ Game.prototype = {
             this.fallenTrios.push(dropTrio[i]);
             this.occupyCoord(dropTrio[i][0],dropTrio[i][1],dropTrio[i][2]);
         }
+        this.score += 5;
         newTrio();
     },
     occupyCoord: function(x,y,z){

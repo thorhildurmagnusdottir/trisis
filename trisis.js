@@ -110,6 +110,8 @@ function render()
     //GAME CUBE
     //renderGameCube();
     //MVM = mult(MVM, translate(0.5,0.5,0.5));
+
+    document.getElementById('score').innerHTML = "You have " + game.score + " points";
     renderCurrentTrio();
     renderFallenTrios();
     requestAnimFrame( render );
