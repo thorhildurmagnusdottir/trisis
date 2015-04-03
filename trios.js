@@ -8,12 +8,11 @@ var Y = 'y';
 var Z = 'z';
 var positive = 0;
 var negative = 1;
-var initPos = {x: 3, y:17, z:3 };
+var initPos = {x: 3, y:18, z:3 };
 //var initPos = {x: 1, y:0, z:1 };
 var initRot = {x: 0, y:0, z:0 };
 function Trio(ILshape){
     //this.shape = ILshape;
-    //console.log('new trio with shape ' + ILshape);
     this.pos = initPos;
     this.cubes = cubeInitPos[ILshape];
 }

@@ -21,7 +21,6 @@ var generateTrio = function(){
 // When an instance (var game = new Game()) of Game is created, one trio is generated
 function Game(){
     //this.currentTrio = currentTrio;
-    console.log('started a Game');
     this.score = 0;
     // fallenTrios are the trios on the bottom.
     this.fallenTrios = [];
@@ -52,42 +51,50 @@ Game.prototype = {
     newTrio: function(){
         this.trio = generateTrio();
     },
-    //newGame: function(){
-    //    clearBoard();
-    //    this.score = 0
-    //},
     moveIfCan: function(x, y, z){
         var checkTrio = this.trio;
         checkTrio.move(x,y,z);
-        if (!border && !this.collideCubes(checkTrio)) this.trio.move(x, y, z);
+        if (!this.border && !this.collideCubes(checkTrio)) this.trio.move(x, y, z);
     },
     rotateIfCan: function(axis, dir){
         var checkTrio = this.trio;
         checkTrio.rotate(axis, dir);
-        if (!border && !this.collideCubes(checkTrio)) rotate(axis, dir);
+        if (this.isBottom(checkTrio)) this.trioFall();
+        if (!this.border && !this.collideCubes(checkTrio)) rotate(axis, dir);
     },
     dropIfCan: function(){
         var checkTrio = this.trio;
         checkTrio.move(0,-1,0);
-        if (isBottom(checkTrio)) this.trioFall();
-        if (!collideCubes(checkTrio)) this.trio.move(0,-1,0);
+        if (!this.collideCubes(checkTrio) && !this.isBottom(checkTrio)) {
+            this.trio.move(0,-1,0);
+        }else this.trioFall();
     },
-    isBottom: function () {
-        // KEJ
+    isBottom: function(trio) {
+        findBottom = game.trio.getCubePos();
+        for(i = 0; i < 3; i++){
+            //console.log("Trio position" + findBottom[i][1]);
+            if(findBottom[i][1] = 0){
+                return true;
+            }
+        }
         return false;
     },
-    border: function(){
-        // KEJ
+    border: function(trio){
+        checkBorder = game.trio.getCubePos();
+        for(i = 0; i < 3; i++){
+            //console.log("Trio position" + checkBorder[i]);
+                if(checkBorder[i][0] > 6 || checkBorder[i][0] < 0 || checkBorder[i][2] > 6 || checkBorder[i][2]){
+                    return true;
+                }
+        }
         return false;
     },
     trioFall: function (){
         dropTrio = game.trio.getCubePos();
         for(i = 0; i<3;i++){
             this.fallenTrios.push(dropTrio[i]);
-            //console.log('fallentrio ' + dropTrio[i]);
             this.occupyCoord(dropTrio[i][0],dropTrio[i][1],dropTrio[i][2]);
-            //console.log('fallentrio ' + dropTrio[i]);
-        }
+            }
         this.newTrio();
     },
     occupyCoord: function(x,y,z){
@@ -100,13 +107,13 @@ Game.prototype = {
         return this.coords[y][x][z] != 0;
     },
     collideCubes: function(trio){
-        var collision = false;
+        var trioCoords = trio.getCubePos();
         for(i=0; i<3;i++){
-            var nextPlane = trio[i][1];
+            var nextPlane = trioCoords[i][1];
             if(this.coords[nextPlane].count != 0) {
                 // kubbur á þessu plani
                 // skilum satt um leid og einn kubbur rekst a
-                if (this.isCube(trio[i][0],trio[i][1],trio[i][2])) return true;
+                if (this.isCube(trioCoords[i][0],trioCoords[i][1],trioCoords[i][2])) return true;
             }
             else {
                 // enginn kubbur a plani fyrir nedan, ma detta
