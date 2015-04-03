@@ -61,16 +61,40 @@ Game.prototype = {
         testTrio.move(x, y, z);
         testCoords = testTrio.getCubePos();
         for(i=0; i<3;i++){
-            console.log('testCoords ' + testCoords[i]);
+            var plane = testCoords[i][1];
+            if(this.coords[plane].count != 0) {
+                if (this.isCube(testCoords[i][0],testCoords[i][1],testCoords[i][2])) return false;
+            }
+            else {
+                // enginn kubbur a plani fyrir nedan, ma detta
+                return true;
+            }
         }
-        return true;
+    },
+    canTrioRotate: function(axis, dir){
+        testTrio = game.trio;
+        testTrio.move(x, y, z);
+        testCoords = testTrio.getCubePos();
+        for(i=0; i<3;i++){
+            var plane = testCoords[i][1];
+            if(this.coords[plane].count != 0) {
+
+            }
+            else {
+                // enginn kubbur a plani fyrir nedan, ma detta
+                return true;
+            }
+        }
     },
     trioFall: function (){
         dropTrio = game.trio.getCubePos();
         for(i = 0; i<3;i++){
             this.fallenTrios.push(dropTrio[i]);
+            //console.log('fallentrio ' + dropTrio[i]);
             this.occupyCoord(dropTrio[i][0],dropTrio[i][1],dropTrio[i][2]);
+            //console.log('fallentrio ' + dropTrio[i]);
         }
+        this.newTrio();
     },
     occupyCoord: function(x,y,z){
         console.log('occupy with ' + x  + ' ' + y + ' ' + z );
@@ -78,10 +102,8 @@ Game.prototype = {
         this.coords[y].count ++;
         this.totalFallenTrios ++;
     },
-    vacateCoord: function(x,y,z){
-        this.coords[y][x][z] = 0;
-        this.coords[y].count --;
-        this.totalFallenTrios --;
+    isCube: function(x,y,z){
+        return this.coords[y][x][z] != 0;
     },
     clearPlane: function(y){
         console.log('clear plane: ' + y);

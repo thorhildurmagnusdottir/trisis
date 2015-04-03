@@ -15,7 +15,9 @@ var shouldMove = function(){
     var zBorder = currentTrio.getCubePos[2];
 
     //return !!(xBorder > 6 || xBorder < 0 || zBorder > 6 || zBorder < 0 || yBorder < 0);
-    return true;
+    //return true;
+
+    return (!otherTrios && !bottom || !otherTrios && Border);
 };
 var pauseGame = false;
 
