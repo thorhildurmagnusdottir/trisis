@@ -12,9 +12,9 @@ position: absolute}
 #wrapper {    top: 0;  margin: auto;  z-index: 1; position: fixed;}
 #flexwrapper {    display: flex;}
 #gameInfo{
-    padding-top: 10%;
+    padding-top: 5em;
     background-color: transparent;
-    color: white;
+    color: skyblue;
     width: 30%;
     float: right;
     z-index: 1;
