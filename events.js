@@ -31,7 +31,7 @@ var shouldMove = function(){
     //return !!(xBorder > 6 || xBorder < 0 || zBorder > 6 || zBorder < 0 || yBorder < 0);
     //return true;
 
-    return (!otherTrios && !bottom || !otherTrios && Border);
+    return (!otherTrios && !isBottom || !otherTrios && Border);
 };
 var pauseGame = false;
 

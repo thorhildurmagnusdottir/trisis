@@ -72,12 +72,24 @@ Game.prototype = {
         if (isBottom(checkTrio)) this.trioFall();
         if (!collideCubes(checkTrio)) this.trio.move(0,-1,0);
     },
-    isBottom: function () {
-        // KEJ
+    isBottom: function(trio) {
+        findBottom = game.trio.getCubePos();
+        for(i = 0; i < 3; i++){
+            console.log("Trio position" + findBottom[i][1]);
+            if(findBottom[i][1] = 0){
+                return true;
+            }
+        }
         return false;
     },
-    border: function(){
-        // KEJ
+    border: function(trio){
+        checkBorder = game.trio.getCubePos();
+        for(i = 0; i < 3; i++){
+            console.log("Trio position" + checkBorder[i]);
+                if(checkBorder[i][0] > 6 || checkBorder[i][0] < 0 || checkBorder[i][2] > 6 || checkBorder[i][2]){
+                    return true;
+                }
+        }
         return false;
     },
     trioFall: function (){
