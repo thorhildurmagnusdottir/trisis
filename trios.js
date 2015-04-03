@@ -8,19 +8,30 @@ var Y = 'y';
 var Z = 'z';
 var positive = 0;
 var negative = 1;
-var initPos = {x: 3, y:18, z:3 };
+const initPos = {x: 3, y:18, z:3 };
 //var initPos = {x: 1, y:0, z:1 };
 var initRot = {x: 0, y:0, z:0 };
-function Trio(ILshape){
-    //this.shape = ILshape;
-    this.pos = initPos;
-    this.cubes = cubeInitPos[ILshape];
+function newTrio(){
+    console.log('newTrio');
+    var randomShape;
+    if (Math.random()>0.5) randomShape = IShape;
+    else randomShape = LShape;
+    var newTrio = new Trio(randomShape, initPos);
+    game.trio = newTrio;
+    //game.trio = generateTrio();
+}
+function generateTrio(){
+    var randomShape;
+    if (Math.random()>0.5) randomShape = IShape;
+    else randomShape = LShape;
+    var newRandomTrio = new Trio(randomShape, initPos);
+    return newRandomTrio;
 }
 var cubeInitPos = {
     L: [{x: 0, y:0, z:0, s: 6 },
         {x: 0, y:1, z:0, s: 2 },
         {x: 1, y:0, z:0, s: 4 }],
-        //[0,0,0],[0,1,0],[1, 0,0]],
+    //[0,0,0],[0,1,0],[1, 0,0]],
     I: [{x: 0, y: 0, z:0, s: 6 },
         {x: 0, y: 1, z:0, s: 2 },
         {x: 0, y:-1, z:0, s: 3 }]
@@ -42,25 +53,26 @@ var rotMatrix = {
     z: [{2: 5, 3: 4, 4: 2, 5: 3},
         {2: 4, 3: 5, 4: 3, 5: 2}]
 };
+function Trio(ILshape){
+    //this.shape = ILshape;
+    this.pos = initPos;
+    this.cubes = cubeInitPos[ILshape];
+}
 Trio.prototype = {
-    constructor: Trio,
+    //constructor: Trio,
     move: function(x,y,z) {
         this.pos.x += x;
         this.pos.y += y;
         this.pos.z += z;
     },
     rotate: function(axis, dir){
-        //console.log('rotate trios around ' + axis + ' axis and ' + dir + ' direction.');
-        // TODO: útfæra betur miðað við stöður og stefnu triosins.
         // Byrjum á öðrum kubb því höfum alltaf sama kubbinn í miðjunni.
         for(i = 1; i< this.cubes.length; i++) {
             var currCube = this.cubes[i];
             if (currCube[axis] != 0){
                 // rotate hefur ekki áhrif á kubb á þeim snúningsás
-                //console.log('Do nothing with cube ' + this.cubes[i]);
             }
             else {
-                //console.log('Rotating cube ' + this.cubes[i]);
                 var state = currCube.s;
                 var next;
                 next = rotMatrix[axis][dir][state];

@@ -124,5 +124,6 @@ var initEvents = function(){
 function newGame(){
     console.log('Started a new Game');
     alert('Started a new game, your points were: ' + game.score);
-    game = new Game();
+    var newGame = new Game();
+    game = newGame;
 }

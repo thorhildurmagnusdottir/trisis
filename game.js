@@ -6,17 +6,12 @@ var game;
 
 // Starts a game to play.
 initGame = function () {
-    game = new Game();
+    var newGame = new Game();
+    game = newGame;
     document.getElementById('score').innerHTML = "You have " + game.score + " points";
 };
 var score = 0;
 // Generates a trio, randomly I or L shape.
-var generateTrio = function(){
-    var randomShape;
-    if (Math.random()>0.5) randomShape = IShape;
-    else randomShape = LShape;
-    return new Trio(randomShape);
-};
 
 // When an instance (var game = new Game()) of Game is created, one trio is generated
 function Game(){
@@ -39,7 +34,7 @@ function Game(){
 Game.prototype = {
     constructor: Game,
     gamePlay: function(){
-        this.newTrio();
+        newTrio();
         if(deleteRow) {
             score++;
             // Allir stopTrio.pos(0, -1, 0);
@@ -52,37 +47,34 @@ Game.prototype = {
         this.trio = generateTrio();
     },
     moveIfCan: function(x, y, z){
-        var checkTrio = this.trio;
-        checkTrio.move(x,y,z);
-        if (!this.border && !this.collideCubes(checkTrio)) this.trio.move(x, y, z);
+        this.trio.move(x,y,z);
+        if (!(this.border() || this.collideCubes())) this.trio.move(-x, -y, -z);
     },
     rotateIfCan: function(axis, dir){
-        var checkTrio = this.trio;
-        checkTrio.rotate(axis, dir);
-        if (this.isBottom(checkTrio)) this.trioFall();
-        if (!this.border && !this.collideCubes(checkTrio)) rotate(axis, dir);
+        var opDir = 0;
+        if (dir == 0) opDir = 1;
+        this.trio.rotate(axis, dir);
+        if (this.border() || this.collideCubes()) this.trio.rotate(axis, opDir);
+        else if (this.isBottom()) this.trioFall();
     },
     dropIfCan: function(){
-        var checkTrio = this.trio;
-        checkTrio.move(0,-1,0);
-        if (!this.collideCubes(checkTrio) && !this.isBottom(checkTrio)) {
-            this.trio.move(0,-1,0);
-        }else this.trioFall();
+        this.trio.move(0,-1,0);
+        if (this.collideCubes() || this.isBottom()) this.trioFall();
     },
-    isBottom: function(trio) {
-        findBottom = game.trio.getCubePos();
+    isBottom: function() {
+        findBottom = this.trio.getCubePos();
         for(i = 0; i < 3; i++){
-            //console.log("Trio position" + findBottom[i][1]);
-            if(findBottom[i][1] = 0){
+            console.log("Trio Y position " + findBottom[i][1]);
+            if(findBottom[i][1] == 0){
                 return true;
             }
         }
         return false;
     },
-    border: function(trio){
-        checkBorder = game.trio.getCubePos();
+    border: function(){
+        checkBorder = this.trio.getCubePos();
         for(i = 0; i < 3; i++){
-            //console.log("Trio position" + checkBorder[i]);
+            console.log("Trio position " + i +  ' x:' +  checkBorder[i][0]+  ' y:' + checkBorder[i][1]+  ' z:' + checkBorder[i][2]);
                 if(checkBorder[i][0] > 6 || checkBorder[i][0] < 0 || checkBorder[i][2] > 6 || checkBorder[i][2]){
                     return true;
                 }
@@ -90,24 +82,26 @@ Game.prototype = {
         return false;
     },
     trioFall: function (){
-        dropTrio = game.trio.getCubePos();
+        console.log('Trio fallen');
+        dropTrio = this.trio.getCubePos();
         for(i = 0; i<3;i++){
             this.fallenTrios.push(dropTrio[i]);
             this.occupyCoord(dropTrio[i][0],dropTrio[i][1],dropTrio[i][2]);
-            }
-        this.newTrio();
+        }
+        newTrio();
     },
     occupyCoord: function(x,y,z){
         console.log('occupy with ' + x  + ' ' + y + ' ' + z );
         this.coords[y][x][z] = 1;
         this.coords[y].count ++;
+        if (this.coords[y].count == 36) this.clearPlane(y);
         this.totalFallenTrios ++;
     },
     isCube: function(x,y,z){
         return this.coords[y][x][z] != 0;
     },
-    collideCubes: function(trio){
-        var trioCoords = trio.getCubePos();
+    collideCubes: function(){
+        var trioCoords = this.trio.getCubePos();
         for(i=0; i<3;i++){
             var nextPlane = trioCoords[i][1];
             if(this.coords[nextPlane].count != 0) {
@@ -122,6 +116,20 @@ Game.prototype = {
         }
     },
     clearPlane: function(y){
-        console.log('clear plane: ' + y);
+        clearFallenTrios(y);
+        this.score += 100;
     }
 };
+function clearFallenTrios(y){
+    fallen = game.fallenTrios;
+    var toSplice = [];
+    for (i=0;i<fallen.length;i++){
+        if (fallen[i][1]==y){
+            toSplice.push(i);
+        }
+        else if (fallen[i][1] >= y) fallen[i][1]--;
+    }
+    for (j=toSplice.length;j>=0;j--){
+        fallen.splice(toSplice[j],1);
+    }
+}
