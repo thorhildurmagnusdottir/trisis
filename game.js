@@ -70,7 +70,7 @@ Game.prototype = {
         }else this.trioFall();
     },
     isBottom: function(trio) {
-        findBottom = game.trio.getCubePos();
+        findBottom = trio.getCubePos();
         for(i = 0; i < 3; i++){
             //console.log("Trio position" + findBottom[i][1]);
             if(findBottom[i][1] = 0){
@@ -80,7 +80,7 @@ Game.prototype = {
         return false;
     },
     border: function(trio){
-        checkBorder = game.trio.getCubePos();
+        checkBorder = trio.getCubePos();
         for(i = 0; i < 3; i++){
             //console.log("Trio position" + checkBorder[i]);
                 if(checkBorder[i][0] > 6 || checkBorder[i][0] < 0 || checkBorder[i][2] > 6 || checkBorder[i][2]){
