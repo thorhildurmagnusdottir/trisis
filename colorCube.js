@@ -13,7 +13,7 @@ drawGameCube = function(){
 };
 drawCube = function () {
     //  Initialize a cube
-    var cubeColor = 0;
+    var cubeColor = 6;
     cubeIndex = index;
     //console.log('init gameCube with cubeIndex: ' + cubeIndex);
     colorCube(cubeColor);

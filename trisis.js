@@ -108,7 +108,7 @@ function render()
     ctm = mult( ctm, rotate( parseFloat(spinY), [0, 1, 0] ) );
     MVM = ctm;
     //GAME CUBE
-    renderGameCube();
+    //renderGameCube();
     //MVM = mult(MVM, translate(0.5,0.5,0.5));
     renderCurrentTrio();
     renderFallenTrios();

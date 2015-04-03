@@ -49,6 +49,7 @@ Game.prototype = {
     moveIfCan: function(x, y, z){
         this.trio.move(x,y,z);
         if (!(this.border() || this.collideCubes())) this.trio.move(-x, -y, -z);
+        else if (this.isBottom()) this.trioFall();
     },
     rotateIfCan: function(axis, dir){
         var opDir = 0;
@@ -58,6 +59,7 @@ Game.prototype = {
         else if (this.isBottom()) this.trioFall();
     },
     dropIfCan: function(){
+        //this.moveIfCan(0,-1,0);
         this.trio.move(0,-1,0);
         if (this.collideCubes() || this.isBottom()) this.trioFall();
     },

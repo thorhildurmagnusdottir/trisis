@@ -58,12 +58,10 @@ var initEvents = function(){
         function moveTrio(e){
             switch(e.keyCode){
                 case letterP:
-                    clearInterval(droptrio);
-                    pauseGame = !pauseGame;
                     if(!pauseGame){
                         clearInterval(droptrio);
                     }else{
-                        setInterval(droptrio);
+                        setInterval(game.dropIfCan(),dropSpeed);
                     }
                     pauseGame = !pauseGame;
                     break;

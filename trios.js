@@ -18,6 +18,7 @@ function newTrio(){
     else randomShape = LShape;
     var newTrio = new Trio(randomShape, initPos);
     game.trio = newTrio;
+    game.trio.pos = {x: 3, y:18, z:3 };
     //game.trio = generateTrio();
 }
 function generateTrio(){
