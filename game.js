@@ -52,39 +52,33 @@ Game.prototype = {
     newTrio: function(){
         this.trio = generateTrio();
     },
-    newGame: function(){
-        clearBoard();
-        this.score = 0
+    //newGame: function(){
+    //    clearBoard();
+    //    this.score = 0
+    //},
+    moveIfCan: function(x, y, z){
+        var checkTrio = this.trio;
+        checkTrio.move(x,y,z);
+        if (!border && !this.collideCubes(checkTrio)) this.trio.move(x, y, z);
     },
-    canTrioMove: function(x, y, z){
-        testTrio = game.trio;
-        testTrio.move(x, y, z);
-        testCoords = testTrio.getCubePos();
-        for(i=0; i<3;i++){
-            var plane = testCoords[i][1];
-            if(this.coords[plane].count != 0) {
-                if (this.isCube(testCoords[i][0],testCoords[i][1],testCoords[i][2])) return false;
-            }
-            else {
-                // enginn kubbur a plani fyrir nedan, ma detta
-                return true;
-            }
-        }
+    rotateIfCan: function(axis, dir){
+        var checkTrio = this.trio;
+        checkTrio.rotate(axis, dir);
+        if (!border && !this.collideCubes(checkTrio)) rotate(axis, dir);
     },
-    canTrioRotate: function(axis, dir){
-        testTrio = game.trio;
-        testTrio.move(x, y, z);
-        testCoords = testTrio.getCubePos();
-        for(i=0; i<3;i++){
-            var plane = testCoords[i][1];
-            if(this.coords[plane].count != 0) {
-
-            }
-            else {
-                // enginn kubbur a plani fyrir nedan, ma detta
-                return true;
-            }
-        }
+    dropIfCan: function(){
+        var checkTrio = this.trio;
+        checkTrio.move(0,-1,0);
+        if (isBottom(checkTrio)) this.trioFall();
+        if (!collideCubes(checkTrio)) this.trio.move(0,-1,0);
+    },
+    isBottom: function () {
+        // KEJ
+        return false;
+    },
+    border: function(){
+        // KEJ
+        return false;
     },
     trioFall: function (){
         dropTrio = game.trio.getCubePos();
@@ -104,6 +98,21 @@ Game.prototype = {
     },
     isCube: function(x,y,z){
         return this.coords[y][x][z] != 0;
+    },
+    collideCubes: function(trio){
+        var collision = false;
+        for(i=0; i<3;i++){
+            var nextPlane = trio[i][1];
+            if(this.coords[nextPlane].count != 0) {
+                // kubbur á þessu plani
+                // skilum satt um leid og einn kubbur rekst a
+                if (this.isCube(trio[i][0],trio[i][1],trio[i][2])) return true;
+            }
+            else {
+                // enginn kubbur a plani fyrir nedan, ma detta
+                return false;
+            }
+        }
     },
     clearPlane: function(y){
         console.log('clear plane: ' + y);

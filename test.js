@@ -8,6 +8,7 @@ function testFall(){
     game.trioFall();
     console.log(game.canTrioMove(0,-1,0));
     console.log(JSON.stringify(game.trio.getCubePos()));
+    console.log(game.moveIfCan(0,-1,0));
     //var fallentrios = game.fallenTrios;
     //var gamecoords = game.coords;
     //console.log('fallentrios are: ' + fallentrios.length +
