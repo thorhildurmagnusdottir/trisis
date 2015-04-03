@@ -6,14 +6,11 @@
     <link rel="stylesheet" type="text/css" href="trisis.css">
 </head>
 <script id="vertex-shader" type="x-shader/x-vertex">
-
 attribute  vec4 vPosition;
 attribute  vec4 vColor;
 varying vec4 fColor;
-
 uniform mat4 projection;
 uniform mat4 modelview;
-
 void main()
 {
     fColor = vColor;
@@ -22,11 +19,8 @@ void main()
 </script>
 
 <script id="fragment-shader" type="x-shader/x-fragment">
-
 precision mediump float;
-
 varying vec4 fColor;
-
 void
 main()
 {
@@ -58,6 +52,7 @@ main()
         <div id="gameInfo">
             <div id="score"></div>
             <div id="newGame">To start a new game press 'R'</div>
+            <div id="pauseGame">To pause game press 'P'</div>
             <div id="instructions">To move the cube use
                 <ul>
                     <li>Arrow keys to move relative to plane</li>

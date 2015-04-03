@@ -110,6 +110,7 @@ function render()
 
     renderGameCube();
     renderCurrentTrio();
+    //renderFallenTrios();
     requestAnimFrame( render );
 }
 function renderCurrentTrio(){
@@ -119,6 +120,14 @@ function renderCurrentTrio(){
         mcm = mult(MVM, translate(test[i]));
         renderCube(mcm);
     }
+}
+
+function renderFallenTrios(){
+    fallenTrios = MVM;
+    //fallenTrios = mult(fallenTrios, translate());
+    fallenTrios = mult(fallenTrios, scale4(1.0, 1.0, 1.0));
+    gl.uniformMatrix4fv(mvloc, false, flatten(fallenTrios));
+    gl.drawArrays(gl.TRIANGLES, fallenIndex, numCubeVertices);
 }
 function renderCube(mcm){
     cubeMatrix = mcm;

@@ -3,96 +3,134 @@
  */
 var bottom = -10;
 var moveIsLegal = true;
+var letterA = 65;
+var letterZ = 90;
+var letterS = 83;
+var letterX = 88;
+var letterD = 68;
+var letterC = 67;
+var leftArrow = 37;
+var upArrow = 38;
+var rightArrow = 39;
+var downArrow = 40;
+var enter = 13;
+var spaceBar = 32;
+var letterP = 80;
+var letterR = 82;
+
+// TODO: fix shouldMove
+// Virkar ekki alveg, en á rétta leið held ég
 var shouldMove = function(){
-    return true;
+
+    // Svona skilar getCubePos()
+    // [[3,16,3],[3,17,3],[3,15,3]]
+    var xBorder = currentTrio.getCubePos[0];
+    var yBorder = currentTrio.getCubePos[1];
+    var zBorder = currentTrio.getCubePos[2];
+
+    //return !!(xBorder > 6 || xBorder < 0 || zBorder > 6 || zBorder < 0 || yBorder < 0);
+    //return true;
+
+    return (!otherTrios && !bottom || !otherTrios && Border);
 };
-var pauseGame;
+var pauseGame = false;
+
 // TODO: all events should call some sort of "shouldMove" function
 // TODO: interval function that moves trio down every 'second'.
 var initEvents = function(){
 
     var currentTrio = game.trio;
 
-    //var droptrio = setInterval(function () {
-    //    currentTrio.move(0, -1, 0)}, dropSpeed);
+    var droptrio = setInterval(function () {
+        currentTrio.move(0, -1, 0)}, dropSpeed);
 
     window.addEventListener("keydown", function (e) {
 
+        rotateTrio(e);
+        moveTrio(e);
 
-        switch (e.keyCode){
-            case 80:    // Letter P
-                clearInterval(droptrio);
-                pauseGame = !pauseGame;
+        function rotateTrio(e){
+            switch(e.keyCode){
+                case letterA:
+                    if(moveIsLegal && !pauseGame){
+                        currentTrio.rotate(X, positive);
+                    }
+                    break;
+                case letterZ:
+                    if(moveIsLegal && !pauseGame){
+                        currentTrio.rotate(X, negative);
+                    }
+                    break;
+                case letterS:
+                    if(moveIsLegal && !pauseGame){
+                        currentTrio.rotate(Y, positive);
+                    }
+                    break;
+                case letterX:
+                    if(moveIsLegal && !pauseGame){
+                        currentTrio.rotate(Y, negative);
+                    }
+                    break;
+                case letterD:
+                    if(moveIsLegal && !pauseGame){
+                        currentTrio.rotate(Z, positive);
+                    }
+                    break;
+                case letterC:
+                    if(moveIsLegal && !pauseGame){
+                        currentTrio.rotate(Z, negative);
+                    }
+                    break;
+
+            }
+        }
+
+        function moveTrio(e){
+            switch(e.keyCode){
+                case letterP:
+                    clearInterval(droptrio);
+                    pauseGame = !pauseGame;
                     if(!pauseGame){
                         setInterval(function() {currentTrio.move(0, -1, 0)}, dropSpeed);
                     }
-                break;
-            case 13:    // Enter button
-                if(moveIsLegal){
-                    currentTrio.move(0, bottom, 0);
-                }
-                break;
-            case 32:    // SpaceBar
-                console.log('space bar');
-                if(moveIsLegal) {
-                    currentTrio.move(0, -1, 0);
-                }
-                break;
-            case 37:    // Left arrow
-                if(moveIsLegal && !pauseGame){
-                    currentTrio.move(1, 0, 0);
-                }
-                break;
-            case 38:    // Up arrow
-                if(moveIsLegal && !pauseGame){
-                    currentTrio.move(0, 0, 1);
-                }
-                break;
-            case 39:    // Right arrow
-                if(moveIsLegal && !pauseGame){
-                    currentTrio.move(-1, 0, 0);
-                }
-                break;
-            case 40:    // Down arrow
-                if(moveIsLegal && !pauseGame){
-                    currentTrio.move(0, 0, -1);
-                }
-                break;
-            case 65:    // Letter A
-                if(moveIsLegal && !pauseGame){
-                    currentTrio.rotate(X, positive);
-                }
-                break;
-            case 90:    // Letter Z
-                if(moveIsLegal && !pauseGame){
-                    currentTrio.rotate(X, negative);
-                }
-                break;
-            case 83:    // Letter S
-                if(moveIsLegal && !pauseGame){
-                    currentTrio.rotate(Y, positive);
-                }
-                break;
-            case 88:    // Letter X
-                if(moveIsLegal && !pauseGame){
-                    currentTrio.rotate(Y, negative);
-                }
-                break;
-            case 68:    // Letter D
-                if(moveIsLegal && !pauseGame){
-                    currentTrio.rotate(Z, positive);
-                }
-                break;
-            case 67:    // Letter C
-                if(moveIsLegal && !pauseGame){
-                    currentTrio.rotate(Z, negative);
-                }
-                break;
-            case 82: // Letter R
-                //if(gameOver){
-                //    game.newGame();
-                //}
-                newGame();
+                    break;
+                case leftArrow:
+                    if(moveIsLegal && !pauseGame){
+                        currentTrio.move(1, 0, 0);
+                    }
+                    break;
+                case upArrow:
+                    if(moveIsLegal && !pauseGame){
+                        currentTrio.move(0, 0, 1);
+                    }
+                    break;
+                case rightArrow:
+                    if(moveIsLegal && !pauseGame){
+                        currentTrio.move(-1, 0, 0);
+                    }
+                    break;
+                case downArrow:
+                    if(moveIsLegal && !pauseGame){
+                        currentTrio.move(0, 0, -1);
+                    }
+                    break;
+                case enter:
+                    if(moveIsLegal && !pauseGame){
+                        currentTrio.move(0, bottom, 0);
+                    }
+                    break;
+                case spaceBar:
+                    if(moveIsLegal && !pauseGame) {
+                        console.log('space bar');
+                        currentTrio.move(0, -1, 0);
+                    }
+                    break;
+                case letterR:
+                    //if(gameOver){
+                    //    game.newGame();
+                    //}
+                    newGame();
+            }
         }
 
     });
@@ -125,9 +163,6 @@ var initEvents = function(){
             zDist -= 0.5;
         }
     });
-};
-var shouldMove = function(){
-    return true;
 };
 function newGame(){
     console.log('Started a new Game');
