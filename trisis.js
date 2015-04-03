@@ -39,7 +39,7 @@ window.onload = function init() {
     if (!gl) {
         alert("WebGL isn't available");
     }
-    var testColor = 4;
+    var testColor = 6;
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.enable(gl.DEPTH_TEST);
@@ -100,6 +100,8 @@ function render()
 
     var proj = perspective( 90.0, 1.0, 0.2, 100.0 );
     gl.uniformMatrix4fv(proLoc, false, flatten(proj));
+
+    //function lookAt( eye, at, up )
     var ctm = lookAt( vec3(0.0, 0.0, zDist), vec3(0.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0) );
     ctm = mult( ctm, rotate( parseFloat(spinX), [1, 0, 0] ) );
     ctm = mult( ctm, rotate( parseFloat(spinY), [0, 1, 0] ) );
@@ -108,11 +110,10 @@ function render()
 
     renderGameCube();
     renderCurrentTrio();
-    renderFallenTrios();
+    //renderFallenTrios();
     requestAnimFrame( render );
 }
 function renderCurrentTrio(){
-    // TODO add Game object into account.
     var mcm, test;
     test = game.trio.getCubePos();
     for(i=0;i<3;i++) {
@@ -123,7 +124,7 @@ function renderCurrentTrio(){
 
 function renderFallenTrios(){
     fallenTrios = MVM;
-    fallenTrios = mult(fallenTrios, translate())
+    //fallenTrios = mult(fallenTrios, translate());
     fallenTrios = mult(fallenTrios, scale4(1.0, 1.0, 1.0));
     gl.uniformMatrix4fv(mvloc, false, flatten(fallenTrios));
     gl.drawArrays(gl.TRIANGLES, fallenIndex, numCubeVertices);
@@ -136,7 +137,7 @@ function renderCube(mcm){
 }
 function renderGameCube(){
     gameCubeMatrix = MVM;
-    gameCubeMatrix = mult(gameCubeMatrix, translate(0.5, 0.5, 0.5));
+    //gameCubeMatrix = mult(gameCubeMatrix, translate(0, 10, 0));
     gameCubeMatrix = mult(gameCubeMatrix, scale4(6, 20, 6));
     gl.uniformMatrix4fv(mvLoc, false, flatten(gameCubeMatrix));
     gl.drawArrays(gl.TRIANGLES, gameCubeIndex, numCubeVertices);

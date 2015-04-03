@@ -3,19 +3,19 @@
  */
 var bottom = -10;
 var moveIsLegal = true;
+
 // TODO: fix shouldMove
 // Virkar ekki alveg, en á rétta leið held ég
 var shouldMove = function(){
+
+    // Svona skilar getCubePos()
+    // [[3,16,3],[3,17,3],[3,15,3]]
     var xBorder = currentTrio.getCubePos[0];
     var yBorder = currentTrio.getCubePos[1];
     var zBorder = currentTrio.getCubePos[2];
 
-    if(xBorder > 6 || xBorder < 0 || zBorder > 6 || zBorder < 0 || yBorder < 0){
-        return true
-    }
-    else {
-        return false;
-    }
+    //return !!(xBorder > 6 || xBorder < 0 || zBorder > 6 || zBorder < 0 || yBorder < 0);
+    return true;
 };
 var pauseGame = false;
 
@@ -25,11 +25,10 @@ var initEvents = function(){
 
     var currentTrio = game.trio;
 
-    var droptrio = setInterval(function () {
-        currentTrio.move(0, -1, 0)}, dropSpeed);
+    //var droptrio = setInterval(function () {
+    //    currentTrio.move(0, -1, 0)}, dropSpeed);
 
     window.addEventListener("keydown", function (e) {
-
 
         switch (e.keyCode){
             case 80:    // Letter P
@@ -45,8 +44,8 @@ var initEvents = function(){
                 }
                 break;
             case 32:    // SpaceBar
-                console.log('space bar');
                 if(moveIsLegal && !pauseGame) {
+                    console.log('space bar');
                     currentTrio.move(0, -1, 0);
                 }
                 break;
@@ -132,14 +131,11 @@ var initEvents = function(){
     // Event listener for mousewheel
     window.addEventListener("mousewheel", function (e) {
         if (e.wheelDelta > 0.0) {
-            zDist += 0.1;
+            zDist += 0.5;
         } else {
-            zDist -= 0.1;
+            zDist -= 0.5;
         }
     });
-};
-var shouldMove = function(){
-    return true;
 };
 function newGame(){
     console.log('Started a new Game');
