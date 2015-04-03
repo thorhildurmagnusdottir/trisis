@@ -6,15 +6,15 @@ var moveIsLegal = true;
 var shouldMove = function(){
     return true;
 };
-
+var pauseGame;
 // TODO: all events should call some sort of "shouldMove" function
 // TODO: interval function that moves trio down every 'second'.
 var initEvents = function(){
 
     var currentTrio = game.trio;
 
-    var droptrio = setInterval(function () {
-        currentTrio.move(0, -1, 0)}, dropSpeed);
+    //var droptrio = setInterval(function () {
+    //    currentTrio.move(0, -1, 0)}, dropSpeed);
 
     window.addEventListener("keydown", function (e) {
 
@@ -120,9 +120,9 @@ var initEvents = function(){
     // Event listener for mousewheel
     window.addEventListener("mousewheel", function (e) {
         if (e.wheelDelta > 0.0) {
-            zDist += 0.1;
+            zDist += 0.5;
         } else {
-            zDist -= 0.1;
+            zDist -= 0.5;
         }
     });
 };
