@@ -3,4 +3,6 @@
  */
 function testFall(){
     //game.occupyCoord()
+
+    console.log(JSON.stringify(game.coords));
 }

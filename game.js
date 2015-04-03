@@ -49,18 +49,19 @@ Game.prototype = {
         // }
     },
     newTrio: function(){
+        console.log('newTrio');
         this.trio = generateTrio();
     },
     moveIfCan: function(x, y, z){
         var checkTrio = this.trio;
         checkTrio.move(x,y,z);
-        if (!this.border && !this.collideCubes(checkTrio)) this.trio.move(x, y, z);
+        if (!this.border(checkTrio) && !this.collideCubes(checkTrio)) this.trio.move(x, y, z);
     },
     rotateIfCan: function(axis, dir){
         var checkTrio = this.trio;
         checkTrio.rotate(axis, dir);
         if (this.isBottom(checkTrio)) this.trioFall();
-        if (!this.border && !this.collideCubes(checkTrio)) rotate(axis, dir);
+        if (!this.border(checkTrio) && !this.collideCubes(checkTrio)) rotate(axis, dir);
     },
     dropIfCan: function(){
         var checkTrio = this.trio;
@@ -70,19 +71,19 @@ Game.prototype = {
         }else this.trioFall();
     },
     isBottom: function(trio) {
-        findBottom = game.trio.getCubePos();
+        findBottom = trio.getCubePos();
         for(i = 0; i < 3; i++){
-            //console.log("Trio position" + findBottom[i][1]);
-            if(findBottom[i][1] = 0){
+            console.log("Trio position " + findBottom[i][1]);
+            if(findBottom[i][1] == 0){
                 return true;
             }
         }
         return false;
     },
     border: function(trio){
-        checkBorder = game.trio.getCubePos();
+        checkBorder = trio.getCubePos();
         for(i = 0; i < 3; i++){
-            //console.log("Trio position" + checkBorder[i]);
+            console.log("Trio position " + i +  ' x:' + checkBorder[i]);
                 if(checkBorder[i][0] > 6 || checkBorder[i][0] < 0 || checkBorder[i][2] > 6 || checkBorder[i][2]){
                     return true;
                 }
@@ -90,11 +91,12 @@ Game.prototype = {
         return false;
     },
     trioFall: function (){
+        console.log('Trio fallen');
         dropTrio = game.trio.getCubePos();
         for(i = 0; i<3;i++){
             this.fallenTrios.push(dropTrio[i]);
             this.occupyCoord(dropTrio[i][0],dropTrio[i][1],dropTrio[i][2]);
-            }
+        }
         this.newTrio();
     },
     occupyCoord: function(x,y,z){

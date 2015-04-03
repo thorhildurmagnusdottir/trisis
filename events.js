@@ -18,7 +18,7 @@ var spaceBar = 32;
 var letterP = 80;
 var letterR = 82;
 
-var pauseGame = false;
+var pause = false;
 
 // TODO: all events should call some sort of "shouldMove" function
 // TODO: interval function that moves trio down every 'second'.
@@ -58,14 +58,12 @@ var initEvents = function(){
         function moveTrio(e){
             switch(e.keyCode){
                 case letterP:
-                    clearInterval(droptrio);
-                    pauseGame = !pauseGame;
-                    if(!pauseGame){
+                    if(!pause){
                         clearInterval(droptrio);
                     }else{
                         setInterval(droptrio);
                     }
-                    pauseGame = !pauseGame;
+                    pause = !pause;
                     break;
                 case leftArrow:
                     game.moveIfCan(1, 0, 0);
