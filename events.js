@@ -18,31 +18,13 @@ var spaceBar = 32;
 var letterP = 80;
 var letterR = 82;
 
-// TODO: fix shouldMove
-// Virkar ekki alveg, en á rétta leið held ég
-var shouldMove = function(){
-
-    // Svona skilar getCubePos()
-    // [[3,16,3],[3,17,3],[3,15,3]]
-    var xBorder = currentTrio.getCubePos[0];
-    var yBorder = currentTrio.getCubePos[1];
-    var zBorder = currentTrio.getCubePos[2];
-
-    //return !!(xBorder > 6 || xBorder < 0 || zBorder > 6 || zBorder < 0 || yBorder < 0);
-    //return true;
-
-    return (!otherTrios && !isBottom || !otherTrios && Border);
-};
 var pauseGame = false;
 
 // TODO: all events should call some sort of "shouldMove" function
 // TODO: interval function that moves trio down every 'second'.
 var initEvents = function(){
 
-    var currentTrio = game.trio;
-
-    var droptrio = setInterval(function () {
-        currentTrio.move(0, -1, 0)}, dropSpeed);
+    var droptrio = setInterval(game.dropIfCan(), dropSpeed);
 
     window.addEventListener("keydown", function (e) {
 
@@ -52,34 +34,22 @@ var initEvents = function(){
         function rotateTrio(e){
             switch(e.keyCode){
                 case letterA:
-                    if(moveIsLegal && !pauseGame){
-                        currentTrio.rotate(X, positive);
-                    }
+                    game.rotateIfCan(X, positive);
                     break;
                 case letterZ:
-                    if(moveIsLegal && !pauseGame){
-                        currentTrio.rotate(X, negative);
-                    }
+                    game.rotateIfCan(X, negative);
                     break;
                 case letterS:
-                    if(moveIsLegal && !pauseGame){
-                        currentTrio.rotate(Y, positive);
-                    }
+                    game.rotateIfCan(Y, positive);
                     break;
                 case letterX:
-                    if(moveIsLegal && !pauseGame){
-                        currentTrio.rotate(Y, negative);
-                    }
+                    game.rotateIfCan(Y, negative);
                     break;
                 case letterD:
-                    if(moveIsLegal && !pauseGame){
-                        currentTrio.rotate(Z, positive);
-                    }
+                    game.rotateIfCan(Z, positive);
                     break;
                 case letterC:
-                    if(moveIsLegal && !pauseGame){
-                        currentTrio.rotate(Z, negative);
-                    }
+                    game.rotateIfCan(Z, negative);
                     break;
 
             }
@@ -91,44 +61,31 @@ var initEvents = function(){
                     clearInterval(droptrio);
                     pauseGame = !pauseGame;
                     if(!pauseGame){
-                        setInterval(function() {currentTrio.move(0, -1, 0)}, dropSpeed);
+                        clearInterval(droptrio);
+                    }else{
+                        setInterval(droptrio);
                     }
+                    pauseGame = !pauseGame;
                     break;
                 case leftArrow:
-                    if(moveIsLegal && !pauseGame){
-                        currentTrio.move(1, 0, 0);
-                    }
+                    game.moveIfCan(1, 0, 0);
                     break;
                 case upArrow:
-                    if(moveIsLegal && !pauseGame){
-                        currentTrio.move(0, 0, 1);
-                    }
+                    game.moveIfCan(0, 0, 1);
                     break;
                 case rightArrow:
-                    if(moveIsLegal && !pauseGame){
-                        currentTrio.move(-1, 0, 0);
-                    }
+                    game.moveIfCan(-1, 0, 0);
                     break;
                 case downArrow:
-                    if(moveIsLegal && !pauseGame){
-                        currentTrio.move(0, 0, -1);
-                    }
+                    game.moveIfCan(0, 0, -1);
                     break;
                 case enter:
-                    if(moveIsLegal && !pauseGame){
-                        currentTrio.move(0, bottom, 0);
-                    }
+                    game.dropIfCan(0, bottom, 0);
                     break;
                 case spaceBar:
-                    if(moveIsLegal && !pauseGame) {
-                        console.log('space bar');
-                        currentTrio.move(0, -1, 0);
-                    }
+                    game.dropIfCan();
                     break;
                 case letterR:
-                    //if(gameOver){
-                    //    game.newGame();
-                    //}
                     newGame();
             }
         }
