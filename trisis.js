@@ -24,7 +24,6 @@ var spinY = 0;
 var origX;
 var origY;
 var currentTrio;
-var dropSpeed = 1500;
 var zDist = -20.0;
 
 var proLoc;
@@ -32,8 +31,8 @@ var mvLoc;
 
 window.onload = function init() {
     canvas = document.getElementById("gl-canvas");
-    canvas.width  = window.innerHeight;
-    canvas.height = window.innerHeight;
+    //canvas.width  = window.innerHeight;
+    //canvas.height = window.innerHeight;
 
     gl = WebGLUtils.setupWebGL(canvas);
     if (!gl) {
@@ -67,10 +66,11 @@ window.onload = function init() {
 
     var vPosition = gl.getAttribLocation(program, "vPosition");
     gl.vertexAttribPointer(vPosition, 3, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(vPosition);
+    gl.enableVertexAttribArray(vPositioJán);
 
     proLoc = gl.getUniformLocation(program, "projection");
     mvLoc = gl.getUniformLocation(program, "modelview");
+
 
     initGame();
     initEvents();
@@ -103,13 +103,13 @@ function render()
     gl.uniformMatrix4fv(proLoc, false, flatten(proj));
 
     //function lookAt( eye, at, up )
-    var ctm = lookAt( vec3(0.0, 0.0, zDist), vec3(0.0, 0.0, 10.0), vec3(0.0, 1.0, 0.0) );
+    var ctm = lookAt( vec3(0.0, 0.0, zDist), vec3(0.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0) );
     ctm = mult( ctm, rotate( parseFloat(spinX), [1, 0, 0] ) );
     ctm = mult( ctm, rotate( parseFloat(spinY), [0, 1, 0] ) );
     MVM = ctm;
     //GAME CUBE
-    //renderGameCube();
-    //MVM = mult(MVM, translate(0.5,0.5,0.5));
+    renderGameCube();
+    MVM = mult(MVM, translate(0.5,0.5,0.5));
 
     document.getElementById('score').innerHTML = "You have " + game.score + " points";
     renderCurrentTrio();

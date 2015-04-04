@@ -90,8 +90,8 @@ Game.prototype = {
             this.occupyCoord(dropTrio[i][0],dropTrio[i][1],dropTrio[i][2]);
         }
         this.score += 5;
-        //newTrio();
-        this.newTrio();
+        newTrio();
+        //this.newTrio();
     },
     occupyCoord: function(x,y,z){
         console.log('occupy with ' + x  + ' ' + y + ' ' + z );
@@ -112,11 +112,8 @@ Game.prototype = {
                 // skilum satt um leid og einn kubbur rekst a
                 if (this.isCube(trioCoords[i][0],trioCoords[i][1],trioCoords[i][2])) return true;
             }
-            else {
-                // enginn kubbur a plani fyrir nedan, ma detta
-                return false;
-            }
         }
+        return false;
     },
     clearPlane: function(y){
         clearFallenTrios(y);

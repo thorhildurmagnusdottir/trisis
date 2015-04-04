@@ -18,14 +18,49 @@ var spaceBar = 32;
 var letterP = 80;
 var letterR = 82;
 var droptrio;
+var dropSpeed = 500;
 var pauseGame = false;
-
+function togglePause(){
+    if(!pauseGame){
+        clearInterval(droptrio);
+    }else {
+        droptrio = setInterval(game.dropIfCan(), dropSpeed);
+    }
+    pauseGame = !pauseGame;
+}
 // TODO: all events should call some sort of "shouldMove" function
 // TODO: interval function that moves trio down every 'second'.
 var initEvents = function(){
 
-    droptrio = setInterval(game.dropIfCan(), dropSpeed);
+    droptrio = setInterval(function(){ game.dropIfCan()}, dropSpeed);
+    canvas.addEventListener("mousedown", function (e) {
+        movement = true;
+        origX = e.offsetX;
+        origY = e.offsetY;
+        e.preventDefault();         // Disable drag and drop
+    });
 
+    canvas.addEventListener("mouseup", function (e) {
+        movement = false;
+    });
+
+    canvas.addEventListener("mousemove", function (e) {
+        if (movement) {
+            spinY = ( spinY + (e.offsetX - origX) ) % 360;
+            spinX = ( spinX + (origY - e.offsetY) ) % 360;
+            origX = e.offsetX;
+            origY = e.offsetY;
+        }
+    });
+
+    // Event listener for mousewheel
+    window.addEventListener("mousewheel", function (e) {
+        if (e.wheelDelta > 0.0) {
+            zDist += 0.5;
+        } else {
+            zDist -= 0.5;
+        }
+    });
     window.addEventListener("keydown", function (e) {
 
         rotateTrio(e);
@@ -58,12 +93,7 @@ var initEvents = function(){
         function moveTrio(e){
             switch(e.keyCode){
                 case letterP:
-                    if(!pauseGame){
-                        clearInterval(droptrio);
-                    }else{
-                        setInterval(game.dropIfCan(),dropSpeed);
-                    }
-                    pauseGame = !pauseGame;
+                    togglePause();
                     break;
                 case leftArrow:
                     game.moveIfCan(1, 0, 0);
@@ -89,35 +119,7 @@ var initEvents = function(){
         }
 
     });
-    //event listeners for mouse
-    canvas.addEventListener("mousedown", function (e) {
-        movement = true;
-        origX = e.offsetX;
-        origY = e.offsetY;
-        e.preventDefault();         // Disable drag and drop
-    });
 
-    canvas.addEventListener("mouseup", function (e) {
-        movement = false;
-    });
-
-    canvas.addEventListener("mousemove", function (e) {
-        if (movement) {
-            spinY = ( spinY + (e.offsetX - origX) ) % 360;
-            spinX = ( spinX + (origY - e.offsetY) ) % 360;
-            origX = e.offsetX;
-            origY = e.offsetY;
-        }
-    });
-
-    // Event listener for mousewheel
-    window.addEventListener("mousewheel", function (e) {
-        if (e.wheelDelta > 0.0) {
-            zDist += 0.5;
-        } else {
-            zDist -= 0.5;
-        }
-    });
 };
 function newGame(){
     console.log('Started a new Game');
