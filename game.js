@@ -47,18 +47,18 @@ Game.prototype = {
     },
     moveIfCan: function(x, y, z){
         this.trio.move(x,y,z);
-        if (!(this.border() || this.collideCubes())) this.trio.move(-x, -y, -z);
+        if (this.border() || this.collideCubes()) this.trio.move(-x, -y, -z);
         else if (this.isBottom()) this.trioFall();
     },
     rotateIfCan: function(axis, dir){
         var opDir = 0;
         if (dir == 0) opDir = 1;
+        console.log('dir ' + dir + ' opDir ' + opDir);
         this.trio.rotate(axis, dir);
         if (this.border() || this.collideCubes()) this.trio.rotate(axis, opDir);
         else if (this.isBottom()) this.trioFall();
     },
     dropIfCan: function(){
-        //this.moveIfCan(0,-1,0);
         this.trio.move(0,-1,0);
         if (this.collideCubes() || this.isBottom()) this.trioFall();
     },
@@ -76,7 +76,7 @@ Game.prototype = {
         checkBorder = this.trio.getCubePos();
         for(i = 0; i < 3; i++){
             console.log("Trio position " + i +  ' x:' +  checkBorder[i][0]+  ' y:' + checkBorder[i][1]+  ' z:' + checkBorder[i][2]);
-                if(checkBorder[i][0] > 6 || checkBorder[i][0] < 0 || checkBorder[i][2] > 6 || checkBorder[i][2]){
+                if(checkBorder[i][0] > 6 || checkBorder[i][0] < 0 || checkBorder[i][2] > 6 || checkBorder[i][2] < 0 ){
                     return true;
                 }
         }
@@ -90,7 +90,8 @@ Game.prototype = {
             this.occupyCoord(dropTrio[i][0],dropTrio[i][1],dropTrio[i][2]);
         }
         this.score += 5;
-        newTrio();
+        //newTrio();
+        this.newTrio();
     },
     occupyCoord: function(x,y,z){
         console.log('occupy with ' + x  + ' ' + y + ' ' + z );
