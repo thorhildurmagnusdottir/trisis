@@ -77,19 +77,14 @@ Game.prototype = {
         return false;
     },
     border: function(){
-        //checkBorder = this.trio.getCubePos();
-        //trioPos = trioPos;
         for(i = 0; i < 3; i++){
-                if(trioPos[i][0] > 6 || trioPos[i][0] < 0 || trioPos[i][2] > 6 || trioPos[i][2] < 0 ){
+                if(trioPos[i][0] >= 6 || trioPos[i][0] < 0 || trioPos[i][2] > 6 || trioPos[i][2] <= 0 ){
                     return true;
                 }
         }
         return false;
     },
     trioFall: function (){
-        console.log('Trio fallen');
-        //dropTrio = this.trio.getCubePos();
-        //trioPos = trioPos;
         for(i = 0; i<3;i++){
             this.fallenTrios.push(trioPos[i]);
             this.occupyCoord(trioPos[i][0],trioPos[i][1],trioPos[i][2]);
@@ -99,19 +94,15 @@ Game.prototype = {
         //this.newTrio();
     },
     occupyCoord: function(x,y,z){
-        console.log('occupy with ' + x  + ' ' + y + ' ' + z );
         this.coords[y][x][z] = 1;
         this.coords[y].count ++;
         if (this.coords[y].count == 36) this.clearPlane(y);
         this.totalFallenTrios ++;
     },
     isCube: function(x,y,z){
-        console.log('checking coords ' + x  + ' ' + y + ' ' + z );
         return this.coords[y][x][z] != 0;
     },
     collideCubes: function(){
-        console.log('collide');
-        //var trioPos = trioPos;
         for(i=0; i<3;i++){
             nextPlane = trioPos[i][1];
             //nextPlane = plane-1;

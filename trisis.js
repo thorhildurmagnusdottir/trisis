@@ -71,7 +71,6 @@ window.onload = function init() {
     proLoc = gl.getUniformLocation(program, "projection");
     mvLoc = gl.getUniformLocation(program, "modelview");
 
-
     initGame();
     initEvents();
     testFall();
@@ -109,7 +108,7 @@ function render()
     MVM = ctm;
     //GAME CUBE
     renderGameCube();
-    MVM = mult(MVM, translate(0.5,0.5,0.5));
+    //MVM = mult(MVM, translate(0.5,0.5,0.5));
 
     document.getElementById('score').innerHTML = "You have " + game.score + " points";
     renderCurrentTrio();
@@ -132,7 +131,7 @@ function renderCube(mcm){
 }
 function renderGameCube(){
     gameCubeMatrix = MVM;
-    gameCubeMatrix = mult(gameCubeMatrix, translate(3.5, 10.5, 3.5));
+    gameCubeMatrix = mult(gameCubeMatrix, translate(2.5, 9.5, 3.5));
     gameCubeMatrix = mult(gameCubeMatrix, scale4(6, 20, 6));
     gl.uniformMatrix4fv(mvLoc, false, flatten(gameCubeMatrix));
     gl.drawArrays(gl.TRIANGLES, gameCubeIndex, numCubeVertices);
