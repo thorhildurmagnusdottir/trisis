@@ -26,6 +26,7 @@ function generateTrio(){
     if (Math.random()>0.5) randomShape = IShape;
     else randomShape = LShape;
     var newRandomTrio = new Trio(randomShape, initPos);
+    newRandomTrio.pos = {x: 3, y:20, z:3 };
     return newRandomTrio;
 }
 var cubeInitPos = {
@@ -67,6 +68,7 @@ Trio.prototype = {
         this.pos.z += z;
     },
     rotate: function(axis, dir){
+        console.log('rotate ' + dir);
         // Byrjum á öðrum kubb því höfum alltaf sama kubbinn í miðjunni.
         for(i = 1; i< this.cubes.length; i++) {
             var currCube = this.cubes[i];

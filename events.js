@@ -17,14 +17,14 @@ var enter = 13;
 var spaceBar = 32;
 var letterP = 80;
 var letterR = 82;
-
+var droptrio;
 var pauseGame = false;
 
 // TODO: all events should call some sort of "shouldMove" function
 // TODO: interval function that moves trio down every 'second'.
 var initEvents = function(){
 
-    var droptrio = setInterval(game.dropIfCan(), dropSpeed);
+    droptrio = setInterval(game.dropIfCan(), dropSpeed);
 
     window.addEventListener("keydown", function (e) {
 
