@@ -76,7 +76,7 @@ Game.prototype = {
         checkBorder = this.trio.getCubePos();
         for(i = 0; i < 3; i++){
             console.log("Trio position " + i +  ' x:' +  checkBorder[i][0]+  ' y:' + checkBorder[i][1]+  ' z:' + checkBorder[i][2]);
-                if(checkBorder[i][0] > 6 || checkBorder[i][0] < 0 || checkBorder[i][2] > 6 || checkBorder[i][2] < 0 ){
+                if(checkBorder[i][0] >= 6 || checkBorder[i][0] < 0 || checkBorder[i][2] > 6 || checkBorder[i][2] <= 0 ){
                     return true;
                 }
         }

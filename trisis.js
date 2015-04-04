@@ -103,12 +103,12 @@ function render()
     gl.uniformMatrix4fv(proLoc, false, flatten(proj));
 
     //function lookAt( eye, at, up )
-    var ctm = lookAt( vec3(0.0, 0.0, zDist), vec3(0.0, 0.0, 10.0), vec3(0.0, 1.0, 0.0) );
+    var ctm = lookAt( vec3(0.0, 0.0, zDist), vec3(0.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0) );
     ctm = mult( ctm, rotate( parseFloat(spinX), [1, 0, 0] ) );
     ctm = mult( ctm, rotate( parseFloat(spinY), [0, 1, 0] ) );
     MVM = ctm;
     //GAME CUBE
-    //renderGameCube();
+    renderGameCube();
     //MVM = mult(MVM, translate(0.5,0.5,0.5));
 
     document.getElementById('score').innerHTML = "You have " + game.score + " points";
@@ -132,7 +132,7 @@ function renderCube(mcm){
 }
 function renderGameCube(){
     gameCubeMatrix = MVM;
-    gameCubeMatrix = mult(gameCubeMatrix, translate(3.5, 10.5, 3.5));
+    gameCubeMatrix = mult(gameCubeMatrix, translate(2.5, 9.5, 3.5));
     gameCubeMatrix = mult(gameCubeMatrix, scale4(6, 20, 6));
     gl.uniformMatrix4fv(mvLoc, false, flatten(gameCubeMatrix));
     gl.drawArrays(gl.TRIANGLES, gameCubeIndex, numCubeVertices);
