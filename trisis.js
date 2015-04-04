@@ -24,7 +24,6 @@ var spinY = 0;
 var origX;
 var origY;
 var currentTrio;
-var dropSpeed = 1500;
 var zDist = -20.0;
 
 var proLoc;
@@ -74,6 +73,7 @@ window.onload = function init() {
 
     initGame();
     initEvents();
+    testFall();
     render();
 };
 function scale4( x, y, z ){
@@ -107,10 +107,12 @@ function render()
     ctm = mult( ctm, rotate( parseFloat(spinY), [0, 1, 0] ) );
     MVM = ctm;
     //GAME CUBE
-
     renderGameCube();
+    //MVM = mult(MVM, translate(0.5,0.5,0.5));
+
+    document.getElementById('score').innerHTML = "You have " + game.score + " points";
     renderCurrentTrio();
-    //renderFallenTrios();
+    renderFallenTrios();
     requestAnimFrame( render );
 }
 function renderCurrentTrio(){
@@ -121,14 +123,6 @@ function renderCurrentTrio(){
         renderCube(mcm);
     }
 }
-
-function renderFallenTrios(){
-    fallenTrios = MVM;
-    //fallenTrios = mult(fallenTrios, translate());
-    fallenTrios = mult(fallenTrios, scale4(1.0, 1.0, 1.0));
-    gl.uniformMatrix4fv(mvloc, false, flatten(fallenTrios));
-    gl.drawArrays(gl.TRIANGLES, fallenIndex, numCubeVertices);
-}
 function renderCube(mcm){
     cubeMatrix = mcm;
     cubeMatrix = mult(cubeMatrix, scale4(1.0, 1.0, 1.0));
@@ -137,8 +131,14 @@ function renderCube(mcm){
 }
 function renderGameCube(){
     gameCubeMatrix = MVM;
-    //gameCubeMatrix = mult(gameCubeMatrix, translate(0, 10, 0));
+    gameCubeMatrix = mult(gameCubeMatrix, translate(2.5, 9.5, 3.5));
     gameCubeMatrix = mult(gameCubeMatrix, scale4(6, 20, 6));
     gl.uniformMatrix4fv(mvLoc, false, flatten(gameCubeMatrix));
     gl.drawArrays(gl.TRIANGLES, gameCubeIndex, numCubeVertices);
+}
+function renderFallenTrios(){
+    for(i=0;i<game.fallenTrios.length;i++) {
+        var mfm = mult(MVM, translate(game.fallenTrios[i][0],game.fallenTrios[i][1],game.fallenTrios[i][2]));
+        renderCube(mfm);
+    }
 }
