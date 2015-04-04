@@ -10,20 +10,12 @@ var gl;
 var MVM;
 var points = [];
 var colors = [];
-var trio = 3;
-var xAxis = 0;
-var yAxis = 1;
-var zAxis = 2;
-
-var axis = 0;
-var theta = [ 0, 0, 0 ];
 
 var movement = false;     // Do we rotate?
 var spinX = 0;
 var spinY = 0;
 var origX;
 var origY;
-var currentTrio;
 var zDist = -20.0;
 
 var proLoc;
@@ -94,8 +86,6 @@ function scale4( x, y, z ){
 // TODO: make rotation and move inherit (like robotArmHH)
 function render()
 {
-    //var rot = currentTrio.rot;
-    //console.log('rotation' + rot[0]);
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     var proj = perspective( 90.0, 1.0, 0.2, 100.0 );

@@ -2,7 +2,6 @@
  * Created by thorhildur on 30.3.2015.
  */
 var bottom = -10;
-var moveIsLegal = true;
 var letterA = 65;
 var letterZ = 90;
 var letterS = 83;
@@ -122,7 +121,6 @@ var initEvents = function(){
 
 };
 function newGame(){
-    console.log('Started a new Game');
     alert('Started a new game, your points were: ' + game.score);
     var newGame = new Game();
     game = newGame;

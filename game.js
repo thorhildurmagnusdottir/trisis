@@ -15,7 +15,6 @@ var score = 0;
 
 // When an instance (var game = new Game()) of Game is created, one trio is generated
 function Game(){
-    //this.currentTrio = currentTrio;
     this.score = 0;
     // fallenTrios are the trios on the bottom.
     this.fallenTrios = [];
@@ -26,25 +25,11 @@ function Game(){
     this.coords = generateGameCoords();
     // trio is the current game trio.
     this.trio = generateTrio();
-    // var moveIsLegal = true;
 }
 // TODO: function for trio to 'die': add to fallen and generate new
 // TODO: Collistion detect function before trio move/rotate
 Game.prototype = {
     constructor: Game,
-    gamePlay: function(){
-        newTrio();
-        if(deleteRow) {
-            score++;
-            // Allir stopTrio.pos(0, -1, 0);
-        }
-        // if(score > 5){
-        //     dropSpeed -= 100;
-        // }
-    },
-    newTrio: function(){
-        this.trio = generateTrio();
-    },
     moveIfCan: function(x, y, z){
         this.trio.move(x,y,z);
         if (this.border() || this.collideCubes()) this.trio.move(-x, -y, -z);
@@ -53,7 +38,6 @@ Game.prototype = {
     rotateIfCan: function(axis, dir){
         var opDir = 0;
         if (dir == 0) opDir = 1;
-        //console.log('dir ' + dir + ' opDir ' + opDir);
         this.trio.rotate(axis, dir);
         if (this.border() || this.collideCubes()) this.trio.rotate(axis, opDir);
         else if (this.isBottom()) this.trioFall();
@@ -66,10 +50,7 @@ Game.prototype = {
         }
     },
     isBottom: function() {
-        //findBottom = this.trio.getCubePos();
-        //trioPos = trioPos;
         for(i = 0; i < 3; i++){
-            //console.log("Trio Y position " + findBottom[i][1]);
             if(trioPos[i][1] == 0){
                 return true;
             }
@@ -78,7 +59,7 @@ Game.prototype = {
     },
     border: function(){
         for(i = 0; i < 3; i++){
-                if(trioPos[i][0] >= 6 || trioPos[i][0] < 0 || trioPos[i][2] > 6 || trioPos[i][2] <= 0 ){
+                if(trioPos[i][0] > 5 || trioPos[i][0] < 0 || trioPos[i][2] > 5 || trioPos[i][2] < 0 ){
                     return true;
                 }
         }
@@ -105,12 +86,9 @@ Game.prototype = {
     collideCubes: function(){
         for(i=0; i<3;i++){
             nextPlane = trioPos[i][1];
-            //nextPlane = plane-1;
-            console.log('count below ' + this.coords[nextPlane].count);
             if(this.coords[nextPlane-1].count != 0) {
                 // kubbur á þessu plani
                 // skilum satt um leid og einn kubbur rekst a
-                console.log('collide' + trioPos[i][0] + trioPos[i][1] + trioPos[i][2]);
                 if (this.isCube(trioPos[i][0],trioPos[i][1],trioPos[i][2])) return true;
             }
         }

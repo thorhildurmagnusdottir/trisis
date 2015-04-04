@@ -8,14 +8,12 @@ var gameCubeIndex;
 drawGameCube = function(){
     var gameCubeColor = 10;
     gameCubeIndex = index;
-    //console.log('init gameCube with gameCubeIndex: ' + gameCubeIndex);
     colorCube(gameCubeColor);
 };
 drawCube = function () {
     //  Initialize a cube
     var cubeColor = 6;
     cubeIndex = index;
-    //console.log('init gameCube with cubeIndex: ' + cubeIndex);
     colorCube(cubeColor);
 };
 function colorCube(color)
