@@ -31,8 +31,8 @@ var mvLoc;
 
 window.onload = function init() {
     canvas = document.getElementById("gl-canvas");
-    //canvas.width  = window.innerHeight;
-    //canvas.height = window.innerHeight;
+    canvas.width  = window.innerHeight;
+    canvas.height = window.innerHeight;
 
     gl = WebGLUtils.setupWebGL(canvas);
     if (!gl) {
@@ -66,7 +66,7 @@ window.onload = function init() {
 
     var vPosition = gl.getAttribLocation(program, "vPosition");
     gl.vertexAttribPointer(vPosition, 3, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(vPositioJán);
+    gl.enableVertexAttribArray(vPosition);
 
     proLoc = gl.getUniformLocation(program, "projection");
     mvLoc = gl.getUniformLocation(program, "modelview");

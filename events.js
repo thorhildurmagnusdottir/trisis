@@ -18,13 +18,13 @@ var spaceBar = 32;
 var letterP = 80;
 var letterR = 82;
 var droptrio;
-var dropSpeed = 500;
+var dropSpeed = 1000;
 var pauseGame = false;
 function togglePause(){
     if(!pauseGame){
         clearInterval(droptrio);
     }else {
-        droptrio = setInterval(game.dropIfCan(), dropSpeed);
+        droptrio = setInterval(function(){ game.dropIfCan()}, dropSpeed);
     }
     pauseGame = !pauseGame;
 }

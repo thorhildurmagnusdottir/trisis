@@ -66,6 +66,7 @@ Trio.prototype = {
         this.pos.x += x;
         this.pos.y += y;
         this.pos.z += z;
+        this.updateCubePos();
     },
     rotate: function(axis, dir){
         console.log('rotate ' + dir);
@@ -82,6 +83,7 @@ Trio.prototype = {
                 this.cubes[i] = TriosPos[next];
             }
         }
+        this.updateCubePos();
     },
     // skilar [] með þremur [x,y,z] sem hægt er að nota beint í translate
     // á eftir að bæta inn uppfærðum snúningshnitum
@@ -95,5 +97,8 @@ Trio.prototype = {
             positions.push(currentCubePos);
         }
         return positions;
+    },
+    updateCubePos: function(){
+        trioPos = this.getCubePos();
     }
 };
