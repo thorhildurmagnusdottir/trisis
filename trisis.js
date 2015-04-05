@@ -121,7 +121,7 @@ function renderCube(mcm){
 }
 function renderGameCube(){
     gameCubeMatrix = MVM;
-    gameCubeMatrix = mult(gameCubeMatrix, translate(2.5, 10.5, 3.5));
+    gameCubeMatrix = mult(gameCubeMatrix, translate(2.5, 10.5, 2.5));
     gameCubeMatrix = mult(gameCubeMatrix, scale4(6, 20, 6));
     gl.uniformMatrix4fv(mvLoc, false, flatten(gameCubeMatrix));
     gl.drawArrays(gl.TRIANGLES, gameCubeIndex, numCubeVertices);
