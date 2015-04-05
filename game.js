@@ -101,14 +101,19 @@ Game.prototype = {
 };
 function clearFallenTrios(y){
     fallen = game.fallenTrios;
-    var toSplice = [];
-    for (i=0;i<fallen.length;i++){
-        if (fallen[i][1]==y){
-            toSplice.push(i);
-        }
-        else if (fallen[i][1] >= y) fallen[i][1]--;
-    }
-    for (j=toSplice.length;j>=0;j--){
-        fallen.splice(toSplice[j],1);
-    }
+    coords.splice(y,1);
+    coords[y] = 0;
+    coords.push([[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]);
+    coords[19].count = 0;
+
+    // var toSplice = [];
+    // for (i=0;i<fallen.length;i++){
+    //    if (fallen[i][1]==y){
+    //        toSplice.push(i);
+    //    }
+    //    else if (fallen[i][1] >= y) fallen[i][1]--;
+    // }
+    // for (j=toSplice.length;j>=0;j--){
+    //    fallen.splice(toSplice[j],1);
+    // }
 }
