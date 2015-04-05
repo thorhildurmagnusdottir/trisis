@@ -101,10 +101,10 @@ Game.prototype = {
 };
 function clearFallenTrios(y){
     fallen = game.fallenTrios;
-    coords.splice(y,1);
+    game.coords.splice(y,1);
     // coords[y] = 0;
-    coords.push([[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]);
-    coords[19].count = 0;
+    game.coords.push([[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]);
+    game.coords[19].count = 0;
 
     var toSplice = [];
     for (i=0;i<fallen.length;i++){
